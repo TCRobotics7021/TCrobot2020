@@ -18,8 +18,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Shooter extends SubsystemBase {
   
-  private CANSparkMax bot_shooter = new CANSparkMax(4, MotorType.kBrushless);
-  private CANSparkMax top_shooter = new CANSparkMax(5, MotorType.kBrushless);
+  private CANSparkMax bot_shooter = new CANSparkMax(5, MotorType.kBrushless);
+  private CANSparkMax top_shooter = new CANSparkMax(4, MotorType.kBrushless);
   private CANEncoder  bot_shooter_enc = bot_shooter.getEncoder();
   private CANEncoder top_shooter_enc = top_shooter.getEncoder();
   public double kP = .0001;
@@ -32,8 +32,13 @@ public class Shooter extends SubsystemBase {
   public double maxRPM = 5000;
   public double bot_top_ratio = 1;
 
+  public double PortRPMs = 0;
+
   private CANPIDController bot_shooter_PID = bot_shooter.getPIDController();
   private CANPIDController top_shooter_PID = top_shooter.getPIDController();
+
+  public double bot_setpoint;
+  public double top_setpoint;
 
 
 
@@ -69,9 +74,13 @@ public class Shooter extends SubsystemBase {
     
     
     bot_top_ratio = SmartDashboard.getNumber("Ratio",1);
+    this.bot_setpoint = setpoint;
+    this.top_setpoint = setpoint * bot_top_ratio;
+
     updatePIDvariables();
-    bot_shooter_PID.setReference(-setpoint, ControlType.kVelocity);
-    top_shooter_PID.setReference(setpoint*bot_top_ratio*1, ControlType.kVelocity);
+    UpdateRPMs();
+    bot_shooter_PID.setReference(this.bot_setpoint, ControlType.kVelocity);
+    top_shooter_PID.setReference(this.top_setpoint, ControlType.kVelocity);
     
     
   }
@@ -117,6 +126,22 @@ public class Shooter extends SubsystemBase {
     
     SmartDashboard.putNumber("Bot Actual RPM", -bot_shooter_enc.getVelocity());
     SmartDashboard.putNumber("Top Actual RPM", top_shooter_enc.getVelocity());
+  }
+
+  public boolean atRPMs() {
+    if (Math.abs(this.bot_setpoint - bot_shooter_enc.getVelocity()) < 50 && Math.abs(this.top_setpoint - top_shooter_enc.getVelocity()) < 50)  {
+      return true;
+    }
+    else{
+      return false;
+    }
+
+  }
+
+  public double getPortRPM(double Distance) {
+    PortRPMs = 0;
+    return PortRPMs;
+
   }
 
 
