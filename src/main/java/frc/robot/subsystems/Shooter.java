@@ -32,7 +32,7 @@ public class Shooter extends SubsystemBase {
   public double maxRPM = 5000;
   public double bot_top_ratio = 1;
 
-  public double PortRPMs = 0;
+  public double PortRatio = 0;
 
   private CANPIDController bot_shooter_PID = bot_shooter.getPIDController();
   private CANPIDController top_shooter_PID = top_shooter.getPIDController();
@@ -70,12 +70,12 @@ public class Shooter extends SubsystemBase {
 
   }
 
-  public void setVelocity(double setpoint){
+  public void setVelocity(double setpoint, double ratio){
     
     
-    bot_top_ratio = SmartDashboard.getNumber("Ratio",1);
+    //bot_top_ratio = SmartDashboard.getNumber("Ratio",1);
     this.bot_setpoint = setpoint;
-    this.top_setpoint = setpoint * bot_top_ratio;
+    this.top_setpoint = setpoint * ratio;
 
     updatePIDvariables();
     UpdateRPMs();
@@ -138,9 +138,9 @@ public class Shooter extends SubsystemBase {
 
   }
 
-  public double getPortRPM(double Distance) {
-    PortRPMs = 0;
-    return PortRPMs;
+  public double getPortRatio(double Distance) {
+    PortRatio = -.00000002*Math.pow(Distance,2)+.0003*Distance-.6394;
+    return PortRatio;
 
   }
 

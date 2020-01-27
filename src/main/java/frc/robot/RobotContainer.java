@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.AcardeDrive;
 import frc.robot.commands.Accumulator_Index;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.SetShooterVelocity;
@@ -44,6 +45,8 @@ public class RobotContainer {
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   private final Joystick gamepad = new Joystick(0);
+  public static Joystick JoyL = new Joystick(1);
+  public static Joystick JoyR = new Joystick(2);
   
   //Constants
   public final static double ACC_SPEED = .5;
@@ -58,7 +61,7 @@ public class RobotContainer {
     configureButtonBindings();
 
     Accumulator_subsystem.setDefaultCommand(new Accumulator_Index());
-
+    Drive_subsystem.setDefaultCommand(new AcardeDrive());
 
 
   }
@@ -70,8 +73,8 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(gamepad, 1).whileHeld(new Shoot_Energy());
-    new JoystickButton(gamepad, 2).whileHeld(new Shoot_Energy_At_Target());
+    new JoystickButton(JoyR, 1).whileHeld(new Shoot_Energy_At_Target());
+    
   }
 
 

@@ -7,14 +7,25 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Drive extends SubsystemBase {
+
+  TalonFX BRMotor = new TalonFX(1);
+  TalonFX BLMotor = new TalonFX(2);
   /**
    * Creates a new Drive.
    */
   public Drive() {
 
+  }
+
+  public void setSpeed(double RSpeed, double LSpeed){
+    BRMotor.set(ControlMode.PercentOutput,RSpeed);
+    BLMotor.set(ControlMode.PercentOutput,-LSpeed);
   }
 
   @Override

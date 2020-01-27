@@ -10,47 +10,34 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class Shoot_Energy_At_Target extends CommandBase {
+public class AcardeDrive extends CommandBase {
+  double LAxis = 0.0; 
+  double RAxis = 0.0; 
   /**
-   * Creates a new Shoot_Energy_At_Target.
+   * Creates a new AcardeDrive.
    */
-
-   double ratio;
-
-   double distance;
-
-   boolean atSpeed;
-
-
-  public Shoot_Energy_At_Target() {
+  public AcardeDrive() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.Accumulator_subsystem);
-    addRequirements(RobotContainer.Limelight_subsystem);
-    addRequirements(RobotContainer.shooter_subsystem);
-    addRequirements(RobotContainer.Turret_subsystem);
+    addRequirements(RobotContainer.Drive_subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    atSpeed = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    if(RobotContainer.shooter_subsystem.atRPMs()) {
-      RobotContainer.Accumulator_subsystem.setSpeed(RobotContainer.ACC_SPEED);
+    RAxis =.5*RobotContainer.JoyR.getRawAxis(1);
+    LAxis = .5*RobotContainer.JoyL.getRawAxis(0); 
+    if(Math.abs(RAxis)<.05){
+      RAxis = 0.0;
     }
-
-    distance = RobotContainer.Limelight_subsystem.getDistance();
-
-    ratio = RobotContainer.shooter_subsystem.getPortRatio(distance);
-
-    RobotContainer.shooter_subsystem.setVelocity(5000, ratio);
-
-    
+    if(Math.abs(LAxis)<.05){
+      LAxis = 0.0;
+    }
+    RobotContainer.Drive_subsystem.setSpeed(RAxis-LAxis, RAxis+LAxis);
 
 
   }
@@ -58,9 +45,8 @@ public class Shoot_Energy_At_Target extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.shooter_subsystem.setVelocity(0,0);
-    RobotContainer.Accumulator_subsystem.setSpeed(0);
-
+    RobotContainer.Drive_subsystem.setSpeed(0,0); 
+    
   }
 
   // Returns true when the command should end.
