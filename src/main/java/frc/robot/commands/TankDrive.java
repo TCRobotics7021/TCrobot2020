@@ -10,13 +10,13 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class AcardeDrive extends CommandBase {
+public class TankDrive extends CommandBase {
   double LAxis = 0.0; 
   double RAxis = 0.0; 
   /**
-   * Creates a new AcardeDrive.
+   * Creates a new TankDrive.
    */
-  public AcardeDrive() {
+  public TankDrive() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.Drive_subsystem);
   }
@@ -30,7 +30,7 @@ public class AcardeDrive extends CommandBase {
   @Override
   public void execute() {
     RAxis =.5*RobotContainer.JoyR.getRawAxis(1);
-    LAxis = .5*RobotContainer.JoyL.getRawAxis(0); 
+    LAxis = .5*RobotContainer.JoyL.getRawAxis(1);
     if(Math.abs(RAxis)<.05){
       RAxis = 0.0;
     }
@@ -38,20 +38,17 @@ public class AcardeDrive extends CommandBase {
       LAxis = 0.0;
     }
     if (RobotContainer.Drive_subsystem.ControlsInverted == false){
-      RobotContainer.Drive_subsystem.setSpeed(RAxis-LAxis, RAxis+LAxis);
-      }
-      else{
-        RobotContainer.Drive_subsystem.setSpeed(RAxis+LAxis, RAxis-LAxis);
-      }
-
-
+    RobotContainer.Drive_subsystem.setSpeed(RAxis, LAxis);
+    }
+    else{
+      RobotContainer.Drive_subsystem.setSpeed(-RAxis, -LAxis);
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     RobotContainer.Drive_subsystem.setSpeed(0,0); 
-    
   }
 
   // Returns true when the command should end.

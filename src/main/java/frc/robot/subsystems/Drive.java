@@ -16,6 +16,9 @@ public class Drive extends SubsystemBase {
 
   TalonFX BRMotor = new TalonFX(1);
   TalonFX BLMotor = new TalonFX(2);
+  TalonFX FRMotor = new TalonFX(3);
+  TalonFX FLMotor = new TalonFX(4);
+  public boolean ControlsInverted = false;
   /**
    * Creates a new Drive.
    */
@@ -26,6 +29,8 @@ public class Drive extends SubsystemBase {
   public void setSpeed(double RSpeed, double LSpeed){
     BRMotor.set(ControlMode.PercentOutput,RSpeed);
     BLMotor.set(ControlMode.PercentOutput,-LSpeed);
+    FLMotor.set(ControlMode.PercentOutput,-LSpeed);
+    FRMotor.set(ControlMode.PercentOutput,RSpeed);
   }
 
   @Override
