@@ -10,50 +10,38 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class Aim_At_Target extends CommandBase {
-  double TX;
-  double speed;
+public class Toggle_Auto_Aim extends CommandBase {
   /**
-   * Creates a new Aim_At_Target.
+   * Creates a new Toggle_Auto_Aim.
    */
-  public Aim_At_Target() {
+  public Toggle_Auto_Aim() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.Turret_subsystem);
-    addRequirements(RobotContainer.Limelight_subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    if (RobotContainer.Turret_subsystem.autoAim == true) {
+      RobotContainer.Turret_subsystem.autoAim = false;
+    } else {
+      RobotContainer.Turret_subsystem.autoAim = true;
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
-    if (RobotContainer.Turret_subsystem.autoAim == true) {
-      TX = RobotContainer.Limelight_subsystem.getTx();
-    speed = TX * 1/15;
-    if(speed < 0){
-      speed -= 0;
-    }else{
-      speed += 0;
-    }
-    RobotContainer.Turret_subsystem.setSpeed(speed);
-    } else {
-      RobotContainer.Turret_subsystem.setSpeed(0);
-    }
-  } 
+  }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.Turret_subsystem.setSpeed(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

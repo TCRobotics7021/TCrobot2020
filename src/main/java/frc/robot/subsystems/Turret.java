@@ -24,25 +24,31 @@ public class Turret extends SubsystemBase {
 
   TalonSRX turret = new TalonSRX(7);
 
-  DigitalInput overtravel = new DigitalInput(2);
+  DigitalInput OTLeft = new DigitalInput(2);
+  DigitalInput OTRight = new DigitalInput(3);
 
+  public boolean autoAim = false;
 
 
   public Turret() {
   }
 
   public void setSpeed(double speed) {
-    
-   if (overtravel.get() == true) {
-     turret.set(ControlMode.PercentOutput, speed);
+
+    if (OTLeft.get() == false && speed < 0 || OTRight.get() == false && speed > 0) {
+      turret.set(ControlMode.PercentOutput, 0);
     } else {
-     turret.set(ControlMode.PercentOutput, 0);
+      turret.set(ControlMode.PercentOutput, speed);
     }
+    
   }
 
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    if (OTLeft.get() == false && turret.getMotorOutputPercent() < 0 || OTRight.get() == false && turret.getMotorOutputPercent() > 0) {
+      turret.set(ControlMode.PercentOutput, 0); 
+    }
   }
 }
