@@ -7,41 +7,36 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
-public class Accumulator_Index extends CommandBase {
+public class Manual_Turret extends CommandBase {
+  double speed;
   /**
-   * Creates a new Accumulator_Index.
+   * Creates a new Manual_Turret.
    */
-  public Accumulator_Index() {
-    addRequirements(RobotContainer.Accumulator_subsystem);
+  public Manual_Turret(double speed) {
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(RobotContainer.Turret_subsystem);
+    this.speed = speed;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
-    if (RobotContainer.Accumulator_subsystem.ballSensor() == true) {
-      RobotContainer.Accumulator_subsystem.setSpeed(RobotContainer.ACC_SPEED);
-    } else {
-      RobotContainer.Accumulator_subsystem.setSpeed(0);
-    }
-
+    RobotContainer.Turret_subsystem.setSpeed(speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.Accumulator_subsystem.setSpeed(0);
+    RobotContainer.Turret_subsystem.setSpeed(0);
   }
 
   // Returns true when the command should end.

@@ -7,18 +7,19 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
-public class Accumulator_Index extends CommandBase {
+public class Aim_At_Target extends CommandBase {
+  double TX;
+  double speed;
   /**
-   * Creates a new Accumulator_Index.
+   * Creates a new Aim_At_Target.
    */
-  public Accumulator_Index() {
-    addRequirements(RobotContainer.Accumulator_subsystem);
+  public Aim_At_Target() {
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(RobotContainer.Turret_subsystem);
+    addRequirements(RobotContainer.Limelight_subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -29,19 +30,20 @@ public class Accumulator_Index extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
-    if (RobotContainer.Accumulator_subsystem.ballSensor() == true) {
-      RobotContainer.Accumulator_subsystem.setSpeed(RobotContainer.ACC_SPEED);
-    } else {
-      RobotContainer.Accumulator_subsystem.setSpeed(0);
+    TX = RobotContainer.Limelight_subsystem.getTx();
+    speed = TX * 1/15;
+    if(speed < 0){
+      speed -= .1;
+    }else{
+      speed += .1;
     }
-
+    RobotContainer.Turret_subsystem.setSpeed(speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.Accumulator_subsystem.setSpeed(0);
+    RobotContainer.Turret_subsystem.setSpeed(0);
   }
 
   // Returns true when the command should end.

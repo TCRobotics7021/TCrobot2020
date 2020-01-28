@@ -21,6 +21,10 @@ public class Shoot_Energy_At_Target extends CommandBase {
 
    boolean atSpeed;
 
+   double TX;
+   
+   double speed;
+
 
   public Shoot_Energy_At_Target() {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -39,9 +43,20 @@ public class Shoot_Energy_At_Target extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    TX = RobotContainer.Limelight_subsystem.getTx();
+    speed = TX * 1/15;
+    if(speed < 0){
+      speed -= 0;
+    }else{
+      speed += 0;
+    }
+    RobotContainer.Turret_subsystem.setSpeed(speed);
 
-    if(RobotContainer.shooter_subsystem.atRPMs()) {
+    if(RobotContainer.shooter_subsystem.atRPMs() && Math.abs(TX) < 2) {
       RobotContainer.Accumulator_subsystem.setSpeed(RobotContainer.ACC_SPEED);
+    }else
+    {
+      RobotContainer.Accumulator_subsystem.setSpeed(0);
     }
 
     distance = RobotContainer.Limelight_subsystem.getDistance();
@@ -60,6 +75,7 @@ public class Shoot_Energy_At_Target extends CommandBase {
   public void end(boolean interrupted) {
     RobotContainer.shooter_subsystem.setVelocity(0,0);
     RobotContainer.Accumulator_subsystem.setSpeed(0);
+    RobotContainer.Turret_subsystem.setSpeed(0);
 
   }
 
