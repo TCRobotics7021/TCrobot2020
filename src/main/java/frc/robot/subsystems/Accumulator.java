@@ -16,10 +16,10 @@ public class Accumulator extends SubsystemBase {
   
   public VictorSP motor = new VictorSP(1);
 
-  public DigitalInput sensor = new DigitalInput(1);
-
-  
-  
+  public DigitalInput infeedsensor = new DigitalInput(1);
+  public DigitalInput outfeedsensor = new DigitalInput(4);
+ //The infeedersensor sends the balls through the accumilator 
+ //The outfeedsensor stops them from getting into the turret
   /**
    * Creates a new Accumulator.
    */
@@ -31,8 +31,11 @@ public class Accumulator extends SubsystemBase {
     motor.set(speed);
   }
 
-  public boolean ballSensor() {
-    return !sensor.get();
+  public boolean infeedblocked() {
+    return !infeedsensor.get();
+  }
+  public boolean outfeedblocked() {
+    return !outfeedsensor.get();
   }
 
   @Override

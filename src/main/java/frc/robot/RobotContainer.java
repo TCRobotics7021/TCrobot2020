@@ -55,6 +55,7 @@ public class RobotContainer {
   public final static double ACC_SPEED = 1;
   public final static double ACC_EMPTY_SPEED = 1;
   public final static double LR_AIM_TOL = 2;
+  public final static double ACC_DELAY = .5;
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
