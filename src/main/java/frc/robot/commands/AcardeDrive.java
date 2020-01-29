@@ -29,7 +29,7 @@ public class AcardeDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RAxis =.5*RobotContainer.JoyR.getRawAxis(1);
+    RAxis =-.5*RobotContainer.JoyR.getRawAxis(1);
     LAxis = .5*RobotContainer.JoyL.getRawAxis(0); 
     if(Math.abs(RAxis)<.05){
       RAxis = 0.0;

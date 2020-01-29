@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Shooter extends SubsystemBase {
   
   private CANSparkMax bot_shooter = new CANSparkMax(5, MotorType.kBrushless);
-  private CANSparkMax top_shooter = new CANSparkMax(4, MotorType.kBrushless);
+  private CANSparkMax top_shooter = new CANSparkMax(6, MotorType.kBrushless);
   private CANEncoder  bot_shooter_enc = bot_shooter.getEncoder();
   private CANEncoder top_shooter_enc = top_shooter.getEncoder();
   public double kP = .0001;
