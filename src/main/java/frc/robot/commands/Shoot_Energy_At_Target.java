@@ -51,19 +51,18 @@ public class Shoot_Energy_At_Target extends CommandBase {
       speed += 0;
     }
     RobotContainer.Turret_subsystem.setSpeed(speed);
-
-    if(RobotContainer.shooter_subsystem.atRPMs() && Math.abs(TX) < 2) {
-      RobotContainer.Accumulator_subsystem.setSpeed(RobotContainer.ACC_SPEED);
-    }else
-    {
-      RobotContainer.Accumulator_subsystem.setSpeed(0);
-    }
-
+    
     distance = RobotContainer.Limelight_subsystem.getDistance();
 
     ratio = RobotContainer.shooter_subsystem.getPortRatio(distance);
 
     RobotContainer.shooter_subsystem.setVelocity(5000, ratio);
+
+    if(RobotContainer.shooter_subsystem.atRPMs() && Math.abs(TX) < 2) {
+      RobotContainer.Accumulator_subsystem.setSpeed(RobotContainer.ACC_SPEED);
+    }
+
+    
 
     
 
