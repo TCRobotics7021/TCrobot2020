@@ -31,6 +31,7 @@ public class AcardeDrive extends CommandBase {
   public void execute() {
     RAxis =.5*RobotContainer.JoyR.getRawAxis(1);
     LAxis = .5*RobotContainer.JoyL.getRawAxis(0); 
+    
     if(Math.abs(RAxis)<.05){
       RAxis = 0.0;
     }
