@@ -46,12 +46,16 @@ public class Limelight extends SubsystemBase {
   public void setPipeline(int pipeline) {
     NetworkTableEntry pipelineTableEntry = table.getEntry("pipeline");
     pipelineTableEntry.setNumber(pipeline);
+    NetworkTableEntry streamTableEntry = table.getEntry("stream");
+    streamTableEntry.setNumber(2);
+
   }
   
   public void setLEDmode(int LEDmode) {
     NetworkTableEntry LEDmodeEntry = table.getEntry("LEDmode");
     LEDmodeEntry.setNumber(LEDmode);
   }
+
 
 
 

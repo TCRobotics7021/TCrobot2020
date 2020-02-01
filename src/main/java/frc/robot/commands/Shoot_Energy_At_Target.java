@@ -19,11 +19,11 @@ public class Shoot_Energy_At_Target extends CommandBase {
 
    double distance;
 
-   boolean atSpeed;
+   boolean shootingStarted;
 
    double TX;
    
-   double speed;
+   double turretSpeed;
 
 
   public Shoot_Energy_At_Target() {
@@ -37,33 +37,36 @@ public class Shoot_Energy_At_Target extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    atSpeed = false;
+    shootingStarted = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if(shootingStarted == false){
     TX = RobotContainer.Limelight_subsystem.getTx();
-    speed = TX * 1/15;
-    if(speed < 0){
-      speed -= 0;
+    turretSpeed = TX * 1/10;
+    if(turretSpeed < 0){
+      turretSpeed -= 0;
     }else{
-      speed += 0;
+      turretSpeed += 0;
     }
-    RobotContainer.Turret_subsystem.setSpeed(speed);
-
-    if(RobotContainer.shooter_subsystem.atRPMs() && Math.abs(TX) < 2) {
-      RobotContainer.Accumulator_subsystem.setSpeed(RobotContainer.ACC_SPEED);
-    }else
-    {
-      RobotContainer.Accumulator_subsystem.setSpeed(0);
-    }
-
     distance = RobotContainer.Limelight_subsystem.getDistance();
+  }else{
+    turretSpeed = 0;
+  }
+    RobotContainer.Turret_subsystem.setSpeed(turretSpeed);
 
     ratio = RobotContainer.shooter_subsystem.getPortRatio(distance);
 
     RobotContainer.shooter_subsystem.setVelocity(5000, ratio);
+
+    if(RobotContainer.shooter_subsystem.atRPMs() && Math.abs(TX) < 2) {
+      RobotContainer.Accumulator_subsystem.setSpeed(RobotContainer.ACC_SPEED);
+      shootingStarted = true;
+    }
+
+    
 
     
 

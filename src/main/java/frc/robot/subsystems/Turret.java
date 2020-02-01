@@ -24,8 +24,8 @@ public class Turret extends SubsystemBase {
 
   TalonSRX turret = new TalonSRX(7);
 
-  DigitalInput OTLeft = new DigitalInput(2);
-  DigitalInput OTRight = new DigitalInput(3);
+  DigitalInput OTLeft = new DigitalInput(4);
+  DigitalInput OTRight = new DigitalInput(2);
 
   public boolean autoAim = false;
 

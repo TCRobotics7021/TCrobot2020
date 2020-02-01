@@ -19,12 +19,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Shooter extends SubsystemBase {
   
   private CANSparkMax bot_shooter = new CANSparkMax(5, MotorType.kBrushless);
-  private CANSparkMax top_shooter = new CANSparkMax(4, MotorType.kBrushless);
+  private CANSparkMax top_shooter = new CANSparkMax(6, MotorType.kBrushless);
   private CANEncoder  bot_shooter_enc = bot_shooter.getEncoder();
   private CANEncoder top_shooter_enc = top_shooter.getEncoder();
-  public double kP = .0001;
-  public double kI = .0000005;
-  public double kD = 0;
+  public double kP = .0002;
+  public double kI = .0000004;
+  public double kD = .003;
   public double kIz = 0;
   public double kFF = 0;
   public double maxOutput = 1;
@@ -124,12 +124,12 @@ public class Shooter extends SubsystemBase {
 
   public void UpdateRPMs() {
     
-    SmartDashboard.putNumber("Bot Actual RPM", -bot_shooter_enc.getVelocity());
+    SmartDashboard.putNumber("Bot Actual RPM", bot_shooter_enc.getVelocity());
     SmartDashboard.putNumber("Top Actual RPM", top_shooter_enc.getVelocity());
   }
 
   public boolean atRPMs() {
-    if (Math.abs(this.bot_setpoint - bot_shooter_enc.getVelocity()) < 1000 && Math.abs(this.top_setpoint - top_shooter_enc.getVelocity()) < 1000)  {
+    if (Math.abs(this.bot_setpoint - bot_shooter_enc.getVelocity()) < 50 && Math.abs(this.top_setpoint - top_shooter_enc.getVelocity()) < 50)  {
       return true;
     }
     else{
@@ -139,7 +139,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public double getPortRatio(double Distance) {
-    PortRatio = -.00000002*Math.pow(Distance,2)+.0003*Distance-.6394;
+    PortRatio = -.00000002*Math.pow(Distance,2)+.0003*Distance-.5394;
     return PortRatio;
 
   }
