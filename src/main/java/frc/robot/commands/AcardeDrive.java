@@ -29,8 +29,12 @@ public class AcardeDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RAxis =-.5*RobotContainer.JoyR.getRawAxis(1);
-    LAxis = .5*RobotContainer.JoyL.getRawAxis(0); 
+    RAxis =-RobotContainer.DRIVE_SCALING*RobotContainer.JoyR.getRawAxis(1);
+    LAxis = RobotContainer.DRIVE_TURN_SCALING*RobotContainer.JoyL.getRawAxis(0); 
+    if (abs(RAxis)+abs(LAxis)>1){
+      RAxis = RAxis/(abs(RAxis)+abs(LAxis));
+      LAxis = LAxis/(abs(RAxis)+abs(LAxis));
+    }
     if(Math.abs(RAxis)<.05){
       RAxis = 0.0;
     }
@@ -41,10 +45,14 @@ public class AcardeDrive extends CommandBase {
       RobotContainer.Drive_subsystem.setSpeed(RAxis-LAxis, RAxis+LAxis);
       }
       else{
-        RobotContainer.Drive_subsystem.setSpeed(RAxis+LAxis, RAxis-LAxis);
+        RobotContainer.Drive_subsystem.setSpeed(-RAxis+LAxis, -RAxis-LAxis);
       }
 
 
+  }
+
+  private int abs(double lAxis2) {
+    return 0;
   }
 
   // Called once the command ends or is interrupted.
