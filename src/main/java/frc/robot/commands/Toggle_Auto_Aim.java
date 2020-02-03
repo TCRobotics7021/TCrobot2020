@@ -7,56 +7,41 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class Shoot_Energy extends CommandBase {
-
-  double setpoint;
-
-
-
-
+public class Toggle_Auto_Aim extends CommandBase {
   /**
-   * Creates a new Shoot_Energy.
+   * Creates a new Toggle_Auto_Aim.
    */
-  public Shoot_Energy() {
+  public Toggle_Auto_Aim() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.Accumulator_subsystem);
-    addRequirements(RobotContainer.shooter_subsystem);
-    addRequirements(RobotContainer.Limelight_subsystem);
+    addRequirements(RobotContainer.Turret_subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    setpoint = SmartDashboard.getNumber("SetPoint",0);
-    SmartDashboard.putNumber("SetPoint",setpoint);
-    RobotContainer.shooter_subsystem.setVelocity(setpoint,1);
+    if (RobotContainer.Turret_subsystem.autoAim == true) {
+      RobotContainer.Turret_subsystem.autoAim = false;
+    } else {
+      RobotContainer.Turret_subsystem.autoAim = true;
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-   if(RobotContainer.shooter_subsystem.atRPMs() == true){
-      RobotContainer.Accumulator_subsystem.setSpeed(RobotContainer.ACC_EMPTY_SPEED);
-   }else{
-    //RobotContainer.Accumulator_subsystem.setSpeed(0);
-   }
-
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.Accumulator_subsystem.setSpeed(0);
-    RobotContainer.shooter_subsystem.setVelocity(0,0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

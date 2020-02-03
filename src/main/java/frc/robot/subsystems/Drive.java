@@ -7,11 +7,24 @@
 
 package frc.robot.subsystems;
 
+<<<<<<< HEAD
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
+=======
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+>>>>>>> 3a8301ee1158b9d826282a2e10b284458995ce4a
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Drive extends SubsystemBase {
+
+  TalonFX BRMotor = new TalonFX(1);
+  TalonFX BLMotor = new TalonFX(2);
+  TalonFX FRMotor = new TalonFX(3);
+  TalonFX FLMotor = new TalonFX(4);
+  public boolean ControlsInverted = false;
   /**
    * Creates a new Drive.
    */
@@ -23,6 +36,16 @@ public class Drive extends SubsystemBase {
     TalonFX back_right = new TalonFX(5);
     TalonFX back_left = new TalonFX(6);
 
+  }
+
+  public void setSpeed(double RSpeed, double LSpeed){
+    BRMotor.set(ControlMode.PercentOutput,RSpeed);
+    BLMotor.set(ControlMode.PercentOutput,-LSpeed);
+    FLMotor.set(ControlMode.PercentOutput,-LSpeed);
+    FRMotor.set(ControlMode.PercentOutput,RSpeed);
+
+    SmartDashboard.putNumber("Left Speed", LSpeed);
+    SmartDashboard.putNumber("Right Speed", RSpeed);
   }
 
   @Override

@@ -30,7 +30,7 @@ public class SetShooterVelocity extends CommandBase {
   public void initialize() {
     setpoint = SmartDashboard.getNumber("SetPoint",0);
     SmartDashboard.putNumber("SetPoint",setpoint);
-    RobotContainer.shooter_subsystem.setVelocity(setpoint);
+    RobotContainer.shooter_subsystem.setVelocity(setpoint,1);
    
   }
 
@@ -45,7 +45,7 @@ public class SetShooterVelocity extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.shooter_subsystem.setVelocity(0);
+    RobotContainer.shooter_subsystem.setVelocity(0,0);
   }
 
   // Returns true when the command should end.

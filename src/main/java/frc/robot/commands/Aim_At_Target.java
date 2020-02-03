@@ -10,76 +10,45 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class Shoot_Energy_At_Target extends CommandBase {
+public class Aim_At_Target extends CommandBase {
+  double TX;
+  double speed;
   /**
-   * Creates a new Shoot_Energy_At_Target.
+   * Creates a new Aim_At_Target.
    */
-
-   double ratio;
-
-   double distance;
-
-   boolean shootingStarted;
-
-   double TX;
-   
-   double turretSpeed;
-
-
-  public Shoot_Energy_At_Target() {
+  public Aim_At_Target() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.Accumulator_subsystem);
-    addRequirements(RobotContainer.Limelight_subsystem);
-    addRequirements(RobotContainer.shooter_subsystem);
     addRequirements(RobotContainer.Turret_subsystem);
+    addRequirements(RobotContainer.Limelight_subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    shootingStarted = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(shootingStarted == false){
-    TX = RobotContainer.Limelight_subsystem.getTx();
-    turretSpeed = TX * 1/10;
-    if(turretSpeed < 0){
-      turretSpeed -= 0;
+    
+    if (RobotContainer.Turret_subsystem.autoAim == true) {
+      TX = RobotContainer.Limelight_subsystem.getTx();
+    speed = TX * 1/15;
+    if(speed < 0){
+      speed -= 0;
     }else{
-      turretSpeed += 0;
+      speed += 0;
     }
-    distance = RobotContainer.Limelight_subsystem.getDistance();
-  }else{
-    turretSpeed = 0;
-  }
-    RobotContainer.Turret_subsystem.setSpeed(turretSpeed);
-
-    ratio = RobotContainer.shooter_subsystem.getPortRatio(distance);
-
-    RobotContainer.shooter_subsystem.setVelocity(5000, ratio);
-
-    if(RobotContainer.shooter_subsystem.atRPMs() && Math.abs(TX) < 2) {
-      RobotContainer.Accumulator_subsystem.setSpeed(RobotContainer.ACC_SPEED);
-      shootingStarted = true;
+    RobotContainer.Turret_subsystem.setSpeed(speed);
+    } else {
+      RobotContainer.Turret_subsystem.setSpeed(0);
     }
-
-    
-
-    
-
-
-  }
+  } 
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.shooter_subsystem.setVelocity(0,0);
-    RobotContainer.Accumulator_subsystem.setSpeed(0);
     RobotContainer.Turret_subsystem.setSpeed(0);
-
   }
 
   // Returns true when the command should end.

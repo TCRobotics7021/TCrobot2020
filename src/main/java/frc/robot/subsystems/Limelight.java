@@ -46,6 +46,9 @@ public class Limelight extends SubsystemBase {
   public void setPipeline(int pipeline) {
     NetworkTableEntry pipelineTableEntry = table.getEntry("pipeline");
     pipelineTableEntry.setNumber(pipeline);
+    NetworkTableEntry streamTableEntry = table.getEntry("stream");
+    streamTableEntry.setNumber(2);
+
   }
   
   public void setLEDmode(int LEDmode) {
@@ -56,9 +59,11 @@ public class Limelight extends SubsystemBase {
 
 
 
+
   public double getDistance() {
+    setPipeline(1);
     yposition = getTy();
-    distance = Math.pow(yposition,2)*40.518-1523.6*yposition+17523;
+    distance = Math.pow(yposition,2)*12.315-118.62*yposition+3289.5;
 
     return distance;
   }

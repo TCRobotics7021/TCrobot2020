@@ -19,12 +19,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Shooter extends SubsystemBase {
   
   private CANSparkMax bot_shooter = new CANSparkMax(5, MotorType.kBrushless);
-  private CANSparkMax top_shooter = new CANSparkMax(4, MotorType.kBrushless);
+  private CANSparkMax top_shooter = new CANSparkMax(6, MotorType.kBrushless);
   private CANEncoder  bot_shooter_enc = bot_shooter.getEncoder();
   private CANEncoder top_shooter_enc = top_shooter.getEncoder();
-  public double kP = .0001;
-  public double kI = .0000005;
-  public double kD = 0;
+  public double kP = .0002;
+  public double kI = .0000004;
+  public double kD = .003;
   public double kIz = 0;
   public double kFF = 0;
   public double maxOutput = 1;
@@ -32,7 +32,7 @@ public class Shooter extends SubsystemBase {
   public double maxRPM = 5000;
   public double bot_top_ratio = 1;
 
-  public double PortRPMs = 0;
+  public double PortRatio = 0;
 
   private CANPIDController bot_shooter_PID = bot_shooter.getPIDController();
   private CANPIDController top_shooter_PID = top_shooter.getPIDController();
@@ -70,12 +70,12 @@ public class Shooter extends SubsystemBase {
 
   }
 
-  public void setVelocity(double setpoint){
+  public void setVelocity(double setpoint, double ratio){
     
     
-    bot_top_ratio = SmartDashboard.getNumber("Ratio",1);
+    //bot_top_ratio = SmartDashboard.getNumber("Ratio",1);
     this.bot_setpoint = setpoint;
-    this.top_setpoint = setpoint * bot_top_ratio;
+    this.top_setpoint = setpoint * ratio;
 
     updatePIDvariables();
     UpdateRPMs();
@@ -124,7 +124,7 @@ public class Shooter extends SubsystemBase {
 
   public void UpdateRPMs() {
     
-    SmartDashboard.putNumber("Bot Actual RPM", -bot_shooter_enc.getVelocity());
+    SmartDashboard.putNumber("Bot Actual RPM", bot_shooter_enc.getVelocity());
     SmartDashboard.putNumber("Top Actual RPM", top_shooter_enc.getVelocity());
   }
 
@@ -138,9 +138,9 @@ public class Shooter extends SubsystemBase {
 
   }
 
-  public double getPortRPM(double Distance) {
-    PortRPMs = 0;
-    return PortRPMs;
+  public double getPortRatio(double Distance) {
+    PortRatio = -.00000002*Math.pow(Distance,2)+.0003*Distance-.5394;
+    return PortRatio;
 
   }
 
