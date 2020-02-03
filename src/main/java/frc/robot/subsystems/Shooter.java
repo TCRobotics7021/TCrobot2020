@@ -139,7 +139,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public double getPortRatio(double Distance) {
-    PortRatio = -.00000002*Math.pow(Distance,2)+.0003*Distance-.5394;
+    PortRatio = -.00000002*Math.pow(Distance,2)+.0003*Distance-.3394;
     return PortRatio;
 
   }

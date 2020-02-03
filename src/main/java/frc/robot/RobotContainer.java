@@ -57,8 +57,8 @@ public class RobotContainer {
   public final static double ACC_SPEED = 1;
   public final static double ACC_EMPTY_SPEED = .8;
   public final static double LR_AIM_TOL = 2;
-  public final static double ACC_DELAY = .5; 
-  public final static double DRIVE_SCALING = 1;
+  public final static double ACC_DELAY = .05; 
+  public final static double DRIVE_SCALING = .5;
   public final static double DRIVE_TURN_SCALING = .5;
 
   /**
