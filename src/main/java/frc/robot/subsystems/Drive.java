@@ -7,15 +7,15 @@
 
 package frc.robot.subsystems;
 
-<<<<<<< HEAD
+
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
-=======
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
+
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
->>>>>>> 3a8301ee1158b9d826282a2e10b284458995ce4a
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Drive extends SubsystemBase {
