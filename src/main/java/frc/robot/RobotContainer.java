@@ -10,26 +10,23 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.AcardeDrive;
 import frc.robot.commands.Accumulator_Index;
 import frc.robot.commands.Aim_At_Target;
 import frc.robot.commands.DriveInvertedToggle;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Manual_Turret;
-import frc.robot.commands.SetShooterVelocity;
-import frc.robot.commands.Shoot_Energy;
 import frc.robot.commands.Shoot_Energy_At_Target;
-import frc.robot.commands.TankDrive;
 import frc.robot.commands.Toggle_Auto_Aim;
 import frc.robot.subsystems.Accumulator;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.NavX;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Turret;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -46,6 +43,7 @@ public class RobotContainer {
   public final static Turret Turret_subsystem = new Turret();
   public final static Limelight Limelight_subsystem = new Limelight();
   public final static Drive Drive_subsystem = new Drive();
+  public final static NavX NavX_subsystem = new NavX();
   
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
