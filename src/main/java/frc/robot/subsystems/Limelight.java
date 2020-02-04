@@ -63,7 +63,7 @@ public class Limelight extends SubsystemBase {
   public double getDistance() {
     setPipeline(1);
     yposition = getTy();
-    distance = Math.pow(yposition,2)*12.315-118.62*yposition+3289.5;
+    distance = Math.pow(yposition,2)*RobotContainer.DIST_CALC_A+RobotContainer.DIST_CALC_B*yposition+RobotContainer.DIST_CALC_C;
 
     return distance;
   }

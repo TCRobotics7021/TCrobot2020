@@ -15,6 +15,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotContainer;
 
 public class Shooter extends SubsystemBase {
   
@@ -31,6 +32,8 @@ public class Shooter extends SubsystemBase {
   public double minOutput = -1;
   public double maxRPM = 5000;
   public double bot_top_ratio = 1;
+  public double ratio_offset = 0;
+
 
   public double PortRatio = 0;
 
@@ -117,6 +120,11 @@ public class Shooter extends SubsystemBase {
     SmartDashboard.putNumber("Ratio", bot_top_ratio);
    
   }
+  public void adjustRatioOffset(double adjust){
+    ratio_offset += adjust;
+  }
+
+
   public void motorIdle(){
     
   }
@@ -139,7 +147,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public double getPortRatio(double Distance) {
-    PortRatio = -.00000002*Math.pow(Distance,2)+.0003*Distance-.3394;
+    PortRatio = RobotContainer.RATIO_CALC_A*Math.pow(Distance,2)+ RobotContainer.RATIO_CALC_B*Distance + RobotContainer.RATIO_CALC_C + ratio_offset;
     return PortRatio;
 
   }
@@ -147,6 +155,7 @@ public class Shooter extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("Ratio Offset", ratio_offset);
 
     SmartDashboard.putNumber("Bot Actual RPM", -bot_shooter_enc.getVelocity());
     SmartDashboard.putNumber("Top Actual RPM", top_shooter_enc.getVelocity());
