@@ -102,12 +102,9 @@ public class RobotContainer {
     new JoystickButton(JoyL, 3).whileHeld(new Aim_At_Target());
     new JoystickButton(JoyR, 7).whenPressed(new DriveInvertedToggle());
     new JoystickButton(JoyR, 14).whenPressed(new Toggle_Auto_Aim());
-<<<<<<< HEAD
     new JoystickButton(JoyL, 10).whenPressed(new Ratio_Adjust(.05));
     new JoystickButton(JoyL, 11).whenPressed(new Ratio_Adjust(-.05));
-=======
     new JoystickButton(JoyR, 12).whenPressed(new SpinningWheel(24));
->>>>>>> 8983c255c7222c6b494a2bc3eb99c128f887a13a
   }
 
 
