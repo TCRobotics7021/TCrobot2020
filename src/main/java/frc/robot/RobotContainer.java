@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.AcardeDrive;
 import frc.robot.commands.Accumulator_Index;
@@ -20,8 +21,10 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Manual_Turret;
 import frc.robot.commands.Ratio_Adjust;
 import frc.robot.commands.Shoot_Energy_At_Target;
+import frc.robot.commands.SpinningWheel;
 import frc.robot.commands.Toggle_Auto_Aim;
 import frc.robot.subsystems.Accumulator;
+import frc.robot.subsystems.ColorWheel;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Limelight;
@@ -45,6 +48,7 @@ public class RobotContainer {
   public final static Limelight Limelight_subsystem = new Limelight();
   public final static Drive Drive_subsystem = new Drive();
   public final static NavX NavX_subsystem = new NavX();
+  public final static ColorWheel ColorWheel_subsystem = new ColorWheel();
   
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
@@ -98,8 +102,12 @@ public class RobotContainer {
     new JoystickButton(JoyL, 3).whileHeld(new Aim_At_Target());
     new JoystickButton(JoyR, 7).whenPressed(new DriveInvertedToggle());
     new JoystickButton(JoyR, 14).whenPressed(new Toggle_Auto_Aim());
+<<<<<<< HEAD
     new JoystickButton(JoyL, 10).whenPressed(new Ratio_Adjust(.05));
     new JoystickButton(JoyL, 11).whenPressed(new Ratio_Adjust(-.05));
+=======
+    new JoystickButton(JoyR, 12).whenPressed(new SpinningWheel(24));
+>>>>>>> 8983c255c7222c6b494a2bc3eb99c128f887a13a
   }
 
 
