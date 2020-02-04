@@ -18,6 +18,7 @@ import frc.robot.commands.Aim_At_Target;
 import frc.robot.commands.DriveInvertedToggle;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Manual_Turret;
+import frc.robot.commands.Ratio_Adjust;
 import frc.robot.commands.Shoot_Energy_At_Target;
 import frc.robot.commands.Toggle_Auto_Aim;
 import frc.robot.subsystems.Accumulator;
@@ -59,6 +60,14 @@ public class RobotContainer {
   public final static double DRIVE_SCALING = .5;
   public final static double DRIVE_TURN_SCALING = .5;
 
+  public final static double RATIO_CALC_A = -.00000002;
+  public final static double RATIO_CALC_B = .0003;
+  public final static double RATIO_CALC_C = -.5394;
+
+  public final static double DIST_CALC_A = 12.315;
+  public final static double DIST_CALC_B = -118.62;
+  public final static double DIST_CALC_C = 3289.5;
+
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
@@ -89,6 +98,8 @@ public class RobotContainer {
     new JoystickButton(JoyL, 3).whileHeld(new Aim_At_Target());
     new JoystickButton(JoyR, 7).whenPressed(new DriveInvertedToggle());
     new JoystickButton(JoyR, 14).whenPressed(new Toggle_Auto_Aim());
+    new JoystickButton(JoyL, 10).whenPressed(new Ratio_Adjust(.05));
+    new JoystickButton(JoyL, 11).whenPressed(new Ratio_Adjust(-.05));
   }
 
 
