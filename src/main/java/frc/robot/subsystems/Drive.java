@@ -7,10 +7,15 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Drive extends SubsystemBase {
@@ -24,6 +29,12 @@ public class Drive extends SubsystemBase {
    * Creates a new Drive.
    */
   public Drive() {
+    TalonFX front_right = new TalonFX(1);
+    TalonFX front_left = new TalonFX(2);
+    TalonFX mid_right = new TalonFX(3);
+    TalonFX mid_left = new TalonFX(4);
+    TalonFX back_right = new TalonFX(5);
+    TalonFX back_left = new TalonFX(6);
 
   }
 
