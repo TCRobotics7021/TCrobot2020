@@ -18,6 +18,7 @@ import frc.robot.commands.Accumulator_Index;
 import frc.robot.commands.Aim_At_Target;
 import frc.robot.commands.DriveInvertedToggle;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.Intake_setspeed;
 import frc.robot.commands.Manual_Turret;
 import frc.robot.commands.Ratio_Adjust;
 import frc.robot.commands.Shoot_Energy_At_Target;
@@ -27,6 +28,7 @@ import frc.robot.subsystems.Accumulator;
 import frc.robot.subsystems.ColorWheel;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.NavX;
 import frc.robot.subsystems.Shooter;
@@ -49,6 +51,7 @@ public class RobotContainer {
   public final static Drive Drive_subsystem = new Drive();
   public final static NavX NavX_subsystem = new NavX();
   public final static ColorWheel ColorWheel_subsystem = new ColorWheel();
+  public final static Intake Intake_subsystem = new Intake(); 
   
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
@@ -71,6 +74,8 @@ public class RobotContainer {
   public final static double DIST_CALC_A = 12.315;
   public final static double DIST_CALC_B = -118.62;
   public final static double DIST_CALC_C = 3289.5;
+
+  public final static double INTAKE_SPEED = .5; //The intake's speed 
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -105,6 +110,7 @@ public class RobotContainer {
     new JoystickButton(JoyL, 10).whenPressed(new Ratio_Adjust(.05));
     new JoystickButton(JoyL, 11).whenPressed(new Ratio_Adjust(-.05));
     new JoystickButton(JoyR, 12).whenPressed(new SpinningWheel(24));
+    new JoystickButton(JoyL, 1).whenPressed(new Intake_setspeed());
   }
 
 
