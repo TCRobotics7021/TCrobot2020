@@ -26,7 +26,12 @@ public final class Constants {
     // 6 = TopShooter
     // 7 = Turret
 
-
-
+    //DigitalInputs
+    // 1 = Infeed Sensor
+    // 2 = OT Right
+    // 3 = Outfeed Sensor
+    // 4 = OT Left
+    // 5 = Top Limit
+    // 6 = Bottom Limit
 
 }
