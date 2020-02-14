@@ -17,11 +17,11 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotContainer;
 
 public class Lift extends SubsystemBase {
   
-  private Spark top_roller = new Spark(0);
-  private CANSparkMax lift_motor = new CANSparkMax(5, MotorType.kBrushless);
+  private CANSparkMax lift_motor = new CANSparkMax(8, MotorType.kBrushless);
   private CANEncoder  lift_motor_enc = lift_motor.getEncoder();
   private DigitalInput top_limit = new DigitalInput(5);
   private DigitalInput bottom_limit = new DigitalInput(6);
@@ -34,8 +34,6 @@ public class Lift extends SubsystemBase {
   public double minOutput = -1;
   public double maxRPM = 5000;
 
-
-  public double PortRatio = 0;
 
   private CANPIDController lift_motor_PID = lift_motor.getPIDController();
 
@@ -58,8 +56,8 @@ public class Lift extends SubsystemBase {
     SmartDashboard.putNumber("IGain_lift", kI);
     SmartDashboard.putNumber("DGain_lift", kD);
     SmartDashboard.putNumber("IZone_lift", kIz);
-    SmartDashboard.putNumber("Max Output", maxOutput);
-    SmartDashboard.putNumber("Min Output", minOutput);
+    SmartDashboard.putNumber("Max Output_lift", maxOutput);
+    SmartDashboard.putNumber("Min Output_lift", minOutput);
    
   }
 
@@ -71,20 +69,29 @@ public class Lift extends SubsystemBase {
     updatePIDvariables();
 
     lift_motor_PID.setReference(this.lift_setpoint, ControlType.kPosition);
-    
-    
+  }
+
+  public void setSpeed(double speed) {
+    if(speed < 0 && bottom_limit.get()){
+      speed = 0;
+    }
+    if(speed > 0 && top_limit.get()){
+      speed = 0;
+    }
+    lift_motor_PID.setReference(speed, ControlType.kDutyCycle);
+
   }
 
 
 
   public void updatePIDvariables(){
-    double p = SmartDashboard.getNumber("PGain", 0);
-    double i = SmartDashboard.getNumber("IGain", 0);
-    double d = SmartDashboard.getNumber("DGain", 0);
-    double iz = SmartDashboard.getNumber("IZone", 0);
-    double ff = SmartDashboard.getNumber("Feed Forward", 0);
-    double max = SmartDashboard.getNumber("Max Output", 0);
-    double min = SmartDashboard.getNumber("Min Output", 0);
+    double p = SmartDashboard.getNumber("PGain_lift", 0);
+    double i = SmartDashboard.getNumber("IGain_lift", 0);
+    double d = SmartDashboard.getNumber("DGain_lift", 0);
+    double iz = SmartDashboard.getNumber("IZone_lift", 0);
+    double ff = SmartDashboard.getNumber("Feed Forward_lift", 0);
+    double max = SmartDashboard.getNumber("Max Output_lift", 0);
+    double min = SmartDashboard.getNumber("Min Output_lift", 0);
 
 
     if((p != kP)) { lift_motor_PID.setP(p); kP = p; }
@@ -96,13 +103,13 @@ public class Lift extends SubsystemBase {
       lift_motor_PID.setOutputRange(min, max); 
       minOutput = min; maxOutput = max; 
     }
-    SmartDashboard.putNumber("PGain", kP);
-    SmartDashboard.putNumber("IGain", kI);
-    SmartDashboard.putNumber("DGain", kD);
-    SmartDashboard.putNumber("IZone", kIz);
-    SmartDashboard.putNumber("Feed Forward", kFF);
-    SmartDashboard.putNumber("Max Output", maxOutput);
-    SmartDashboard.putNumber("Min Output", minOutput);
+    SmartDashboard.putNumber("PGain_lift", kP);
+    SmartDashboard.putNumber("IGain_lift", kI);
+    SmartDashboard.putNumber("DGain_lift", kD);
+    SmartDashboard.putNumber("IZone_lift", kIz);
+    SmartDashboard.putNumber("Feed Forward_lift", kFF);
+    SmartDashboard.putNumber("Max Output_lift", maxOutput);
+    SmartDashboard.putNumber("Min Output_lift", minOutput);
    
   }
   public void Reset_enc(){
@@ -112,13 +119,15 @@ public class Lift extends SubsystemBase {
 
     @Override
   public void periodic() {
+    lift_motor_enc.setPositionConversionFactor(RobotContainer.LIFT_POS_CONV_FACTOR); 
     if(bottom_limit.get() == true){
       Reset_enc();
     }
-
     SmartDashboard.putNumber("Lift Encoder Position", lift_motor_enc.getPosition());
     // This method will be called once per scheduler run
-    
-
   }
+
+
+
+
 }

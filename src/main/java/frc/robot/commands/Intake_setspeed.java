@@ -27,14 +27,14 @@ public class Intake_setspeed extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.Intake_subsystem.set_Intake_Speed(RobotContainer.INTAKE_SPEED);
+    RobotContainer.Intake_subsystem.set_Intake_Speed(-RobotContainer.INTAKE_SPEED);
     
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-
+    RobotContainer.Intake_subsystem.set_Intake_Speed(0);
   }
 
   // Returns true when the command should end.

@@ -7,6 +7,10 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -14,7 +18,7 @@ import frc.robot.RobotContainer;
 
 public class Accumulator extends SubsystemBase {
   
-  public VictorSP motor = new VictorSP(1);
+  public CANSparkMax motor = new CANSparkMax(9, MotorType.kBrushless);
 
   public DigitalInput infeedsensor = new DigitalInput(1);
   public DigitalInput outfeedsensor = new DigitalInput(3);
@@ -28,7 +32,7 @@ public class Accumulator extends SubsystemBase {
   }
 
   public void setSpeed(double speed) {
-    motor.set(speed);
+    motor.set(-speed);
   }
 
   public boolean infeedblocked() {
