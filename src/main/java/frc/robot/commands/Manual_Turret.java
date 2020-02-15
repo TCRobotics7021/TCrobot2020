@@ -25,11 +25,13 @@ public class Manual_Turret extends CommandBase {
   @Override
   public void initialize() {
     
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    RobotContainer.Limelight_subsystem.setPipeline(0);
     RobotContainer.Turret_subsystem.setSpeed(speed);
   }
 

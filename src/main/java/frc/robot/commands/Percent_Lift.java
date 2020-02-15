@@ -24,6 +24,7 @@ public class Percent_Lift extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    RobotContainer.Lift_Subsystem.latchLift(false);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -35,6 +36,8 @@ public class Percent_Lift extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    RobotContainer.Lift_Subsystem.latchLift(true);
+    RobotContainer.Lift_Subsystem.setSpeed(0);
   }
 
   // Returns true when the command should end.

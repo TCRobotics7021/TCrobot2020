@@ -31,7 +31,7 @@ public class Shooter extends SubsystemBase {
   public double maxOutput = 1;
   public double minOutput = -1;
   public double maxRPM = 5000;
-  public double bot_top_ratio = 1;
+  public double bot_top_ratio = .5;
   public double ratio_offset = 0;
 
 
@@ -70,7 +70,7 @@ public class Shooter extends SubsystemBase {
     SmartDashboard.putNumber("Max Output", maxOutput);
     SmartDashboard.putNumber("Min Output", minOutput);
     SmartDashboard.putNumber("Ratio", bot_top_ratio);
-
+    SmartDashboard.putNumber("TestingRatio", .5);
   }
 
   public void setVelocity(double setpoint, double ratio){
@@ -86,6 +86,11 @@ public class Shooter extends SubsystemBase {
     top_shooter_PID.setReference(this.top_setpoint, ControlType.kVelocity);
     
     
+  }
+
+  public void freeWheel() {
+    bot_shooter_PID.setReference(0, ControlType.kVoltage);
+    top_shooter_PID.setReference(0, ControlType.kVoltage);
   }
 
 
@@ -141,7 +146,7 @@ public class Shooter extends SubsystemBase {
       return true;
     }
     else{
-      return true;
+      return false;
     }
 
   }

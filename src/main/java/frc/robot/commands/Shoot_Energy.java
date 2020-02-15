@@ -13,7 +13,7 @@ import frc.robot.RobotContainer;
 
 public class Shoot_Energy extends CommandBase {
 
-  double setpoint;
+  double smartratio;
 
 
 
@@ -31,14 +31,15 @@ public class Shoot_Energy extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    setpoint = SmartDashboard.getNumber("SetPoint",0);
-    SmartDashboard.putNumber("SetPoint",setpoint);
-    RobotContainer.shooter_subsystem.setVelocity(setpoint,1);
+   // smartratio = SmartDashboard.getNumber("Ratio",0);
+    //SmartDashboard.putNumber("Ratio",smartratio);
+   
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    RobotContainer.shooter_subsystem.setVelocity(5000, smartratio);
    if(RobotContainer.shooter_subsystem.atRPMs() == true){
       RobotContainer.Accumulator_subsystem.setSpeed(RobotContainer.ACC_EMPTY_SPEED);
    }else{
@@ -52,6 +53,7 @@ public class Shoot_Energy extends CommandBase {
   public void end(boolean interrupted) {
     RobotContainer.Accumulator_subsystem.setSpeed(0);
     RobotContainer.shooter_subsystem.setVelocity(0,0);
+    RobotContainer.shooter_subsystem.freeWheel();
   }
 
   // Returns true when the command should end.

@@ -22,6 +22,7 @@ import frc.robot.commands.Intake_setspeed;
 import frc.robot.commands.Manual_Turret;
 import frc.robot.commands.Percent_Lift;
 import frc.robot.commands.Ratio_Adjust;
+import frc.robot.commands.Shoot_Energy;
 import frc.robot.commands.Shoot_Energy_At_Target;
 import frc.robot.commands.SpinningWheel;
 import frc.robot.commands.Toggle_Auto_Aim;
@@ -63,22 +64,22 @@ public class RobotContainer {
   public static Joystick OPpanel = new Joystick(0);
   
   //Constants
-  public final static double ACC_SPEED = 1;
+  public final static double ACC_SPEED = .5;
   public final static double ACC_EMPTY_SPEED = .8;
-  public final static double ACC_DELAY = .05;
+  public final static double ACC_DELAY = .05; //In Seconds
   
   public final static double LR_AIM_TOL = 2;
    
   public final static double DRIVE_SCALING = .5;
   public final static double DRIVE_TURN_SCALING = .5;
 
-  public final static double RATIO_CALC_A = -.00000002;
-  public final static double RATIO_CALC_B = .0003;
-  public final static double RATIO_CALC_C = -.5394;
+  public final static double RATIO_CALC_A = -.000000008;
+  public final static double RATIO_CALC_B = .0001;
+  public final static double RATIO_CALC_C = -.0203;
 
-  public final static double DIST_CALC_A = 12.315;
-  public final static double DIST_CALC_B = -118.62;
-  public final static double DIST_CALC_C = 3289.5;
+  public final static double DIST_CALC_A = 17.635;
+  public final static double DIST_CALC_B = -5.4232;
+  public final static double DIST_CALC_C = 3075.9;
 
   public final static double INTAKE_SPEED = .5; //The intake's speed 
 
@@ -96,7 +97,7 @@ public class RobotContainer {
 
     Drive_subsystem.setDefaultCommand(new AcardeDrive());
 
-    Turret_subsystem.setDefaultCommand(new Aim_At_Target());
+    //Turret_subsystem.setDefaultCommand(new Aim_At_Target());
 
 
 
@@ -113,12 +114,13 @@ public class RobotContainer {
     new JoystickButton(OPpanel, 8).whileHeld(new Manual_Turret(.5));
     new JoystickButton(OPpanel, 12).whileHeld(new Manual_Turret(-.5));
     new JoystickButton(JoyR, 1).whileHeld(new Intake_setspeed()); 
-    new JoystickButton(OPpanel, 15).whileHeld(new Percent_Lift(0.5));
-    new JoystickButton(OPpanel, 16).whileHeld(new Percent_Lift(-0.5));
+    new JoystickButton(OPpanel, 15).whileHeld(new Percent_Lift(0.2));
+    new JoystickButton(OPpanel, 16).whileHeld(new Percent_Lift(-0.2));
     //new JoystickButton(JoyR, 7).whenPressed(new DriveInvertedToggle());
     //new JoystickButton(JoyL, 10).whenPressed(new Ratio_Adjust(.05));
     //new JoystickButton(JoyL, 11).whenPressed(new Ratio_Adjust(-.05));
     //new JoystickButton(JoyR, 12).whenPressed(new SpinningWheel(24));
+ 
   }
 
 
