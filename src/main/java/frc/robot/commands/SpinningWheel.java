@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import java.util.Set;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
@@ -19,6 +20,7 @@ public class SpinningWheel extends CommandBase {
    */
 
   //create your variables here
+  Timer ColorDelay = new Timer();
   int Counter;
   int Target;
   Color CurrentColor;
@@ -43,9 +45,11 @@ public class SpinningWheel extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (CurrentColor != RobotContainer.ColorWheel_subsystem.getCurrentColor()) {
+    if (CurrentColor != RobotContainer.ColorWheel_subsystem.getCurrentColor() && ColorDelay.get()>0.1) {
       Counter += 1;
       CurrentColor = RobotContainer.ColorWheel_subsystem.getCurrentColor();
+      ColorDelay.reset();
+      ColorDelay.start();
       }
     if (Counter >= Target) {
       Finished = true;

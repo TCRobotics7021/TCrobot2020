@@ -17,16 +17,6 @@ package frc.robot;
  */
 public final class Constants {
 
-    //CAN Adresses
-    // 1 = BackRight
-    // 2 = BackLeft
-    // 3 = FrontRight
-    // 4 = FrontLeft
-    // 5 = BottomShooter
-    // 6 = TopShooter
-    // 7 = Turret
-
-
-
+    
 
 }

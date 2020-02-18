@@ -4,12 +4,16 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-
 package frc.robot.subsystems;
+
+import edu.wpi.first.wpilibj.Spark;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
+
+  public Spark intake_motor = new Spark(4);
+
   /**
    * Creates a new Intake.
    */
@@ -17,8 +21,13 @@ public class Intake extends SubsystemBase {
 
   }
 
+  public void set_Intake_Speed(double speed) {
+    intake_motor.set(speed);
+  }
+
   @Override
   public void periodic() {
+
     // This method will be called once per scheduler run
   }
 }

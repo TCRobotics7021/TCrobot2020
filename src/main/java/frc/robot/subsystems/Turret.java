@@ -26,7 +26,7 @@ public class Turret extends SubsystemBase {
 
   DigitalInput OTLeft = new DigitalInput(4);
   DigitalInput OTRight = new DigitalInput(2);
-
+  
   public boolean autoAim = false;
 
 
@@ -34,7 +34,7 @@ public class Turret extends SubsystemBase {
   }
 
   public void setSpeed(double speed) {
-
+    speed = -speed;
     if (OTLeft.get() == false && speed < 0 || OTRight.get() == false && speed > 0) {
       turret.set(ControlMode.PercentOutput, 0);
     } else {

@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
@@ -43,6 +44,7 @@ public class Shoot_Energy_At_Target extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if(RobotContainer.OPpanel.getRawButton(4)== false){
     if(shootingStarted == false){
     TX = RobotContainer.Limelight_subsystem.getTx();
     turretSpeed = TX * 1/10;
@@ -60,12 +62,17 @@ public class Shoot_Energy_At_Target extends CommandBase {
     ratio = RobotContainer.shooter_subsystem.getPortRatio(distance);
 
     RobotContainer.shooter_subsystem.setVelocity(5000, ratio);
+} else{
+  ratio = RobotContainer.shooter_subsystem.getPortRatio(RobotContainer.PRESET_SHOOTING_DIST);
+  RobotContainer.shooter_subsystem.setVelocity(5000, SmartDashboard.getNumber("TestingRatio",0));
 
-    if(RobotContainer.shooter_subsystem.atRPMs() && Math.abs(TX) < 2) {
+
+}
+    if(RobotContainer.shooter_subsystem.atRPMs()&&( Math.abs(TX) < 2 || RobotContainer.OPpanel.getRawButton(4)) ) {
       RobotContainer.Accumulator_subsystem.setSpeed(RobotContainer.ACC_SPEED);
       shootingStarted = true;
     }
-
+    
     
 
     
@@ -79,6 +86,7 @@ public class Shoot_Energy_At_Target extends CommandBase {
     RobotContainer.shooter_subsystem.setVelocity(0,0);
     RobotContainer.Accumulator_subsystem.setSpeed(0);
     RobotContainer.Turret_subsystem.setSpeed(0);
+    RobotContainer.shooter_subsystem.freeWheel();
 
   }
 
