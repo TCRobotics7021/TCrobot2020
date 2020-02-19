@@ -65,18 +65,11 @@ public class Shoot_Energy_At_Target extends CommandBase {
 } else{
   ratio = RobotContainer.shooter_subsystem.getPortRatio(RobotContainer.PRESET_SHOOTING_DIST);
   RobotContainer.shooter_subsystem.setVelocity(5000, SmartDashboard.getNumber("TestingRatio",0));
-
-
 }
     if(RobotContainer.shooter_subsystem.atRPMs()&&( Math.abs(TX) < 2 || RobotContainer.OPpanel.getRawButton(4)) ) {
       RobotContainer.Accumulator_subsystem.setSpeed(RobotContainer.ACC_SPEED);
       shootingStarted = true;
     }
-    
-    
-
-    
-
 
   }
 
