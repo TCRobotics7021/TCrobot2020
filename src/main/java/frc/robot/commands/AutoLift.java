@@ -10,37 +10,31 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class Intake_setspeed extends CommandBase {
+public class AutoLift extends CommandBase {
+  double position;
   /**
-   * Creates a new Intake_setspeed.
+   * Creates a new AutoLift.
    */
-  double speed;
-  public Intake_setspeed(double speed) {
-    this.speed = speed;
+  public AutoLift(double position) {
+    this.position = position;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.Intake_subsystem);
+    addRequirements(RobotContainer.Lift_Subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (RobotContainer.outfeedsensor.get() == true){
-      RobotContainer.Intake_subsystem.set_Intake_Speed(-speed);
-
-    }else {
-      RobotContainer.Intake_subsystem.set_Intake_Speed(0);
-    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.Intake_subsystem.set_Intake_Speed(0);
   }
 
   // Returns true when the command should end.

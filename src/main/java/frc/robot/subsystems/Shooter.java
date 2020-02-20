@@ -24,7 +24,7 @@ public class Shooter extends SubsystemBase {
   private CANEncoder  bot_shooter_enc = bot_shooter.getEncoder();
   private CANEncoder top_shooter_enc = top_shooter.getEncoder();
   public double kP = .0002;
-  public double kI = .0000004;
+  public double kI = .0000005;
   public double kD = .003;
   public double kIz = 0;
   public double kFF = 0;

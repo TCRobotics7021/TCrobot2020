@@ -23,12 +23,10 @@ import frc.robot.RobotContainer;
 public class Lift extends SubsystemBase {
   
   private CANSparkMax lift_motor = new CANSparkMax(8, MotorType.kBrushless);
-  private CANEncoder  lift_motor_enc = lift_motor.getEncoder();
+  public CANEncoder  lift_motor_enc = lift_motor.getEncoder();
   private DigitalInput top_limit = new DigitalInput(5);
   private DigitalInput bottom_limit = new DigitalInput(0);
   private Solenoid latch = new Solenoid(11,0);
-  public double kP = .0002;
-  public double lift_setpoint;
   
 
 
@@ -39,13 +37,7 @@ public class Lift extends SubsystemBase {
    
   }
 
-  public void setPosition(double setpoint){
-    
-    
-    this.lift_setpoint = setpoint;
-
-    
-  }
+  
 
   public void setSpeed(double speed) {
     if(speed < 0 && !bottom_limit.get()){
@@ -67,8 +59,8 @@ public class Lift extends SubsystemBase {
 }
 
  
-  public void Reset_enc(){
-    setPosition(0);
+  public void Set_enc(double Enc_set){
+    lift_motor_enc.setPosition(Enc_set);
 
   }
 
@@ -76,7 +68,7 @@ public class Lift extends SubsystemBase {
   public void periodic() {
     lift_motor_enc.setPositionConversionFactor(RobotContainer.LIFT_POS_CONV_FACTOR); 
     if(bottom_limit.get() == true){
-      Reset_enc();
+      Set_enc(0);
     }
     SmartDashboard.putNumber("Lift Encoder Position", lift_motor_enc.getPosition());
     // This method will be called once per scheduler run

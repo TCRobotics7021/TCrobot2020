@@ -7,82 +7,69 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class Shoot_Energy_At_Target extends CommandBase {
+public class AutoShoot extends CommandBase {
+  Timer shootTimer = new Timer();
+
+  double TimeOn;
+
+  double ratio;
+
+  double distance;
+
+  boolean shootingStarted;
+
+  double TX;
+  
+  double turretSpeed;
   /**
-   * Creates a new Shoot_Energy_At_Target.
+   * Creates a new AutoShoot.
    */
-
-   double ratio;
-
-   double distance;
-
-   boolean shootingStarted;
-
-   double TX;
-   
-   double turretSpeed;
-
-
-  public Shoot_Energy_At_Target() {
+  public AutoShoot(double TimeOn) {
+    this.TimeOn = TimeOn;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.Accumulator_subsystem);
     addRequirements(RobotContainer.Limelight_subsystem);
     addRequirements(RobotContainer.shooter_subsystem);
     addRequirements(RobotContainer.Turret_subsystem);
+
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     shootingStarted = false;
+    shootTimer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(RobotContainer.OPpanel.getRawButton(4)== false){
     if(shootingStarted == false){
-    TX = RobotContainer.Limelight_subsystem.getTx();
-    turretSpeed = TX * 1/10;
-    if(turretSpeed < 0){
-      turretSpeed -= 0;
+      TX = RobotContainer.Limelight_subsystem.getTx();
+      turretSpeed = TX * 1/10;
+      if(turretSpeed < 0){
+        turretSpeed -= 0;
+      }else{
+        turretSpeed += 0;
+      }
+      distance = RobotContainer.Limelight_subsystem.getDistance();
     }else{
-      turretSpeed += 0;
+      turretSpeed = 0;
     }
-    if (turretSpeed > .75) {
-      turretSpeed = .75;
-    } 
-    if (turretSpeed < -.75) {
-      turretSpeed = -.75;    }
-    distance = RobotContainer.Limelight_subsystem.getDistance();
-  }else{
-    turretSpeed = 0;
-  }
-    RobotContainer.Turret_subsystem.setSpeed(turretSpeed);
+      RobotContainer.Turret_subsystem.setSpeed(turretSpeed);
+  
+      ratio = RobotContainer.shooter_subsystem.getPortRatio(distance);
+  
+      RobotContainer.shooter_subsystem.setVelocity(5000, ratio);
 
-    ratio = RobotContainer.shooter_subsystem.getPortRatio(distance);
-
-    RobotContainer.shooter_subsystem.setVelocity(5000, ratio);
-} else{
-  ratio = RobotContainer.shooter_subsystem.getPortRatio(RobotContainer.PRESET_SHOOTING_DIST);
-  RobotContainer.shooter_subsystem.setVelocity(5000, SmartDashboard.getNumber("TestingRatio",0));
-
-
-}
-    if(RobotContainer.shooter_subsystem.atRPMs()&&( Math.abs(TX) < 2 || RobotContainer.OPpanel.getRawButton(4)) ) {
-      RobotContainer.Accumulator_subsystem.setSpeed(RobotContainer.ACC_SPEED);
-      shootingStarted = true;
-    }
-    
-    
-
-    
-
-
+      if(RobotContainer.shooter_subsystem.atRPMs()&&( Math.abs(TX) < 2)) {
+        RobotContainer.Accumulator_subsystem.setSpeed(RobotContainer.ACC_SPEED);
+        shootingStarted = true;
+      }
   }
 
   // Called once the command ends or is interrupted.
@@ -92,12 +79,15 @@ public class Shoot_Energy_At_Target extends CommandBase {
     RobotContainer.Accumulator_subsystem.setSpeed(0);
     RobotContainer.Turret_subsystem.setSpeed(0);
     RobotContainer.shooter_subsystem.freeWheel();
-
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if (shootTimer.get() > TimeOn) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

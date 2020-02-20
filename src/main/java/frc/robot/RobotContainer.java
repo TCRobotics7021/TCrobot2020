@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -16,9 +17,11 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.AcardeDrive;
 import frc.robot.commands.Accumulator_Index;
 import frc.robot.commands.Aim_At_Target;
+import frc.robot.commands.AutoShoot;
 import frc.robot.commands.DriveInvertedToggle;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Intake_setspeed;
+import frc.robot.commands.Lift_Goto_Height;
 import frc.robot.commands.Manual_Turret;
 import frc.robot.commands.Percent_Lift;
 import frc.robot.commands.Ratio_Adjust;
@@ -62,9 +65,10 @@ public class RobotContainer {
   public static Joystick JoyL = new Joystick(1);
   public static Joystick JoyR = new Joystick(2);
   public static Joystick OPpanel = new Joystick(0);
+  public static DigitalInput outfeedsensor = new DigitalInput(3); 
   
   //Constants
-  public final static double ACC_SPEED = .5;
+  public final static double ACC_SPEED = .4;
   public final static double ACC_EMPTY_SPEED = .8;
   public final static double ACC_DELAY = .05; //In Seconds
   
@@ -73,9 +77,9 @@ public class RobotContainer {
   public final static double DRIVE_SCALING = .5;
   public final static double DRIVE_TURN_SCALING = .5;
 
-  public final static double RATIO_CALC_A = -.000000008;
-  public final static double RATIO_CALC_B = .0001;
-  public final static double RATIO_CALC_C = -.0203;
+  public final static double RATIO_CALC_A = -.00000003;
+  public final static double RATIO_CALC_B = .0004;
+  public final static double RATIO_CALC_C = -.6633;
 
   public final static double DIST_CALC_A = 17.635;
   public final static double DIST_CALC_B = -5.4232;
@@ -113,14 +117,16 @@ public class RobotContainer {
     new JoystickButton(JoyL, 1).whileHeld(new Shoot_Energy_At_Target());
     new JoystickButton(OPpanel, 8).whileHeld(new Manual_Turret(.5));
     new JoystickButton(OPpanel, 12).whileHeld(new Manual_Turret(-.5));
-    new JoystickButton(JoyR, 1).whileHeld(new Intake_setspeed()); 
-    new JoystickButton(OPpanel, 15).whileHeld(new Percent_Lift(0.2));
-    new JoystickButton(OPpanel, 16).whileHeld(new Percent_Lift(-0.2));
+    new JoystickButton(JoyR, 1).whileHeld(new Intake_setspeed(.5)); 
+    new JoystickButton(JoyR, 2).whileHeld(new Intake_setspeed(-.5));
+    new JoystickButton(OPpanel, 15).whileHeld(new Percent_Lift(1));
+    new JoystickButton(OPpanel, 16).whileHeld(new Percent_Lift(-1));
     //new JoystickButton(JoyR, 7).whenPressed(new DriveInvertedToggle());
     //new JoystickButton(JoyL, 10).whenPressed(new Ratio_Adjust(.05));
     //new JoystickButton(JoyL, 11).whenPressed(new Ratio_Adjust(-.05));
     //new JoystickButton(JoyR, 12).whenPressed(new SpinningWheel(24));
- 
+    new JoystickButton(OPpanel, 13).whenPressed(new Lift_Goto_Height(1000));
+    new JoystickButton(OPpanel, 14).whenPressed(new Lift_Goto_Height(0));
   }
 
 
@@ -130,7 +136,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    // An ExampleCommand will run in autonomous 
+    return new AutoShoot(10);
   }
 }

@@ -21,7 +21,7 @@ public class Accumulator extends SubsystemBase {
   public CANSparkMax motor = new CANSparkMax(9, MotorType.kBrushless);
 
   public DigitalInput infeedsensor = new DigitalInput(1);
-  public DigitalInput outfeedsensor = new DigitalInput(3);
+ 
  //The infeedersensor sends the balls through the accumilator 
  //The outfeedsensor stops them from getting into the turret
   /**
@@ -39,7 +39,7 @@ public class Accumulator extends SubsystemBase {
     return !infeedsensor.get();
   }
   public boolean outfeedblocked() {
-    return !outfeedsensor.get();
+    return !RobotContainer.outfeedsensor.get();
   }
 
   @Override
