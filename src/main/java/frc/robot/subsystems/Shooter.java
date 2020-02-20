@@ -70,7 +70,9 @@ public class Shooter extends SubsystemBase {
     SmartDashboard.putNumber("Max Output", maxOutput);
     SmartDashboard.putNumber("Min Output", minOutput);
     SmartDashboard.putNumber("Ratio", bot_top_ratio);
-    SmartDashboard.putNumber("TestingRatio", .5);
+    SmartDashboard.putNumber("TestingRatio", 0.5);
+    SmartDashboard.putNumber("Set Ratio", 0.5);
+    SmartDashboard.putNumber("Set RPMs", 5000);
   }
 
   public void setVelocity(double setpoint, double ratio){

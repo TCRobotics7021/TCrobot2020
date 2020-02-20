@@ -13,11 +13,15 @@ import frc.robot.RobotContainer;
 
 public class Shoot_Energy extends CommandBase {
 
-  double smartratio;
+  double ratio;
 
+  boolean shootingStarted;
 
+  double TX;
+  
+  double turretSpeed;
 
-
+  double RPMs;
   /**
    * Creates a new Shoot_Energy.
    */
@@ -39,12 +43,31 @@ public class Shoot_Energy extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.shooter_subsystem.setVelocity(5000, smartratio);
-   if(RobotContainer.shooter_subsystem.atRPMs() == true){
-      RobotContainer.Accumulator_subsystem.setSpeed(RobotContainer.ACC_EMPTY_SPEED);
-   }else{
-    //RobotContainer.Accumulator_subsystem.setSpeed(0);
-   }
+    if(RobotContainer.OPpanel.getRawButton(4)== false){
+      if(shootingStarted == false){
+      TX = RobotContainer.Limelight_subsystem.getTx();
+      turretSpeed = TX * 1/10;
+      if(turretSpeed < 0){
+        turretSpeed -= 0;
+      }else{
+        turretSpeed += 0;
+      }
+    }else{
+      turretSpeed = 0;
+    }
+      RobotContainer.Turret_subsystem.setSpeed(turretSpeed);
+  }
+      ratio = SmartDashboard.getNumber("Set Ratio", 0);
+
+      RPMs = SmartDashboard.getNumber("Set RPMs", 0);
+  
+      RobotContainer.shooter_subsystem.setVelocity(RPMs, ratio);
+
+      if(RobotContainer.shooter_subsystem.atRPMs()&&( Math.abs(TX) < 2 || RobotContainer.OPpanel.getRawButton(4)) ) {
+        RobotContainer.Accumulator_subsystem.setSpeed(RobotContainer.ACC_SPEED);
+        shootingStarted = true;
+      }
+  
 
   }
 
