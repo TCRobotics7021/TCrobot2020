@@ -89,7 +89,9 @@ public class RobotContainer {
 
   public final static double PRESET_SHOOTING_DIST = 3000; //In mm 
 
-  public final static double LIFT_POS_CONV_FACTOR = 1; 
+  public final static double LIFT_POS_CONV_FACTOR = 2.9723191748; 
+
+  public final static double LIFT_PVALUE = .2;
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
@@ -114,19 +116,20 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(JoyL, 1).whileHeld(new Shoot_Energy());
+    new JoystickButton(JoyL, 2).whileHeld(new Shoot_Energy());
+    new JoystickButton(JoyL, 1).whileHeld(new Shoot_Energy_At_Target());
     new JoystickButton(OPpanel, 8).whileHeld(new Manual_Turret(.5));
     new JoystickButton(OPpanel, 12).whileHeld(new Manual_Turret(-.5));
     new JoystickButton(JoyR, 1).whileHeld(new Intake_setspeed(.5)); 
     new JoystickButton(JoyR, 2).whileHeld(new Intake_setspeed(-.5));
-    new JoystickButton(OPpanel, 15).whileHeld(new Percent_Lift(1));
-    new JoystickButton(OPpanel, 16).whileHeld(new Percent_Lift(-1));
+    new JoystickButton(OPpanel, 15).whileHeld(new Percent_Lift(.5));
+    new JoystickButton(OPpanel, 16).whileHeld(new Percent_Lift(-.5));
     //new JoystickButton(JoyR, 7).whenPressed(new DriveInvertedToggle());
     //new JoystickButton(JoyL, 10).whenPressed(new Ratio_Adjust(.05));
     //new JoystickButton(JoyL, 11).whenPressed(new Ratio_Adjust(-.05));
     //new JoystickButton(JoyR, 12).whenPressed(new SpinningWheel(24));
-    new JoystickButton(OPpanel, 13).whenPressed(new Lift_Goto_Height(1000));
-    new JoystickButton(OPpanel, 14).whenPressed(new Lift_Goto_Height(0));
+    new JoystickButton(OPpanel, 13).whenPressed(new Lift_Goto_Height(1530));
+    new JoystickButton(OPpanel, 14).whenPressed(new Lift_Goto_Height(1063));
   }
 
   

@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
@@ -14,6 +15,8 @@ public class Lift_Goto_Height extends CommandBase {
   double Setpoint;
 
   boolean finished = false;
+
+  double DistError;
   /**
    * Creates a new Lift_Goto_Height.
    */
@@ -26,21 +29,25 @@ public class Lift_Goto_Height extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-     
+    finished = false;
+    RobotContainer.Lift_Subsystem.latchLift(false);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    DistError = Math.abs(RobotContainer.Lift_Subsystem.lift_motor_enc.getPosition() - Setpoint);
+    SmartDashboard.putNumber("Distance Error",DistError);
+
     if (RobotContainer.Lift_Subsystem.lift_motor_enc.getPosition() < Setpoint) {
-      RobotContainer.Lift_Subsystem.setSpeed(1);
+      RobotContainer.Lift_Subsystem.setSpeed(DistError*RobotContainer.LIFT_PVALUE);
     }
 
     if (RobotContainer.Lift_Subsystem.lift_motor_enc.getPosition() > Setpoint) {
-      RobotContainer.Lift_Subsystem.setSpeed(-1);
+      RobotContainer.Lift_Subsystem.setSpeed(-DistError*RobotContainer.LIFT_PVALUE);
     }
 
-    if (Math.abs(RobotContainer.Lift_Subsystem.lift_motor_enc.getPosition() - Setpoint) < 5) {
+    if (DistError < 5) {
       finished = true;
     }
   }

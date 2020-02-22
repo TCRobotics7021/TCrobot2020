@@ -67,8 +67,8 @@ public class Lift extends SubsystemBase {
     @Override
   public void periodic() {
     lift_motor_enc.setPositionConversionFactor(RobotContainer.LIFT_POS_CONV_FACTOR); 
-    if(bottom_limit.get() == true){
-      Set_enc(0);
+    if(bottom_limit.get() == false){
+      Set_enc(1063);
     }
     SmartDashboard.putNumber("Lift Encoder Position", lift_motor_enc.getPosition());
     // This method will be called once per scheduler run
