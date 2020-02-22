@@ -31,7 +31,6 @@ public class ColorWheel extends SubsystemBase {
    * Creates a new ColorWheel.
    */
   public ColorWheel() {
-
     colorMatcher.addColorMatch(BlueTarget);
     colorMatcher.addColorMatch(GreenTarget);
     colorMatcher.addColorMatch(RedTarget);
@@ -45,7 +44,9 @@ public class ColorWheel extends SubsystemBase {
   public void setWheelSpeed(double speed) {
     colorWheel_motor.setSpeed(speed);
   }
-
+  public int getCurrentDistance() {
+    return ColorSensor.getProximity();
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
