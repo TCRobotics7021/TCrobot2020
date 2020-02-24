@@ -44,8 +44,8 @@ public class Drive extends SubsystemBase {
     FLMotor.set(ControlMode.PercentOutput,-LSpeed);
     FRMotor.set(ControlMode.PercentOutput,RSpeed);
 
-    SmartDashboard.putNumber("Left Speed", LSpeed);
-    SmartDashboard.putNumber("Right Speed", RSpeed);
+   // SmartDashboard.putNumber("Left Speed", LSpeed);
+    //SmartDashboard.putNumber("Right Speed", RSpeed);
   }
 
   @Override

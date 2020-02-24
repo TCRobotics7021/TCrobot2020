@@ -144,7 +144,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public boolean atRPMs() {
-    if (Math.abs(this.bot_setpoint - bot_shooter_enc.getVelocity()) < 100 && Math.abs(this.top_setpoint - top_shooter_enc.getVelocity()) < 100)  {
+    if (Math.abs(this.bot_setpoint - bot_shooter_enc.getVelocity()) < 20 && Math.abs(this.top_setpoint - top_shooter_enc.getVelocity()) < 20)  {
       return true;
     }
     else{

@@ -35,7 +35,7 @@ public class ColorWheel_Drive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(RobotContainer.ColorWheel_subsystem.getCurrentDistance() < 5) {
+    if(RobotContainer.ColorWheel_subsystem.getCurrentDistance() > 9) {
       Finished = true;
     }
   }

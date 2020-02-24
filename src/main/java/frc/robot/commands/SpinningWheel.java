@@ -10,6 +10,7 @@ package frc.robot.commands;
 import java.util.Set;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
@@ -23,7 +24,9 @@ public class SpinningWheel extends CommandBase {
   Timer ColorDelay = new Timer();
   int Counter;
   int Target;
-  Color CurrentColor;
+  String PreviousColor;
+  String CurrentColor;
+
   boolean Finished;
 
   public SpinningWheel(int Target){
@@ -37,23 +40,31 @@ public class SpinningWheel extends CommandBase {
   @Override
   public void initialize() {
    Counter = 0;
-   CurrentColor = RobotContainer.ColorWheel_subsystem.getCurrentColor();
-   RobotContainer.ColorWheel_subsystem.setWheelSpeed(0.5);
+   PreviousColor = RobotContainer.ColorWheel_subsystem.getCurrentColor();
+   RobotContainer.ColorWheel_subsystem.setWheelSpeed(0.7);
+   ColorDelay.start();
    Finished = false;
   }  
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (CurrentColor != RobotContainer.ColorWheel_subsystem.getCurrentColor() && ColorDelay.get()>0.1) {
-      Counter += 1;
+    if(ColorDelay.get()>0.2){
       CurrentColor = RobotContainer.ColorWheel_subsystem.getCurrentColor();
+    if (!CurrentColor.equals(PreviousColor)) {
+      Counter += 1;
+      SmartDashboard.putNumber("Color Counter", Counter);
+      SmartDashboard.putString("Current Color", CurrentColor);
+      PreviousColor = RobotContainer.ColorWheel_subsystem.getCurrentColor(); 
+     
+      }
       ColorDelay.reset();
       ColorDelay.start();
-      }
+    }
     if (Counter >= Target) {
       Finished = true;
     }
+    
   }
 
   // Called once the command ends or is interrupted.
