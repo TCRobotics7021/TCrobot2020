@@ -78,7 +78,7 @@ public class RobotContainer {
   
   //Constants
   public final static double ACC_SPEED = .4;
-  public final static double ACC_EMPTY_SPEED = .8;
+  public final static double ACC_EMPTY_SPEED = 1;
   public final static double ACC_DELAY = .05; //In Seconds
   
   public final static double LR_AIM_TOL = 2;
@@ -99,10 +99,10 @@ public class RobotContainer {
   public final static double PRESET_SHOOTING_DIST = 3000; //In mm 
 
   public final static double LIFT_POS_CONV_FACTOR = 2.9723191748; 
-  public final static double RESET_ENC_POS = 1063;
+  public final static double RESET_ENC_POS = 1084;
   public final static double BAR_POS = 1530;
-  public final static double COLORWHEEL_ABOVE_POS = 0;
-  public final static double COLORWHEEL_ON_POS = 1;
+  public final static double COLORWHEEL_ABOVE_POS = 1115;
+  public final static double COLORWHEEL_ON_POS = 1070;
   public final static double RETRACT_POS = 1063;
 
   public final static double LIFT_PVALUE = .2;
@@ -160,9 +160,9 @@ public class RobotContainer {
     new JoystickButton(JoyR, 13).whenPressed(new Lift_Goto_Height(COLORWHEEL_ABOVE_POS));
     new JoystickButton(JoyR, 14).whenPressed(new Lift_Goto_Height(COLORWHEEL_ON_POS));
 
-    new JoystickButton(OPpanel, 4).whileHeld(new CancelCommand());
+    new JoystickButton(OPpanel, 3).whileHeld(new CancelCommand());
 
-    new JoystickButton(OPpanel, 3).whileHeld(new Percent_Shoot());
+    new JoystickButton(OPpanel, 2).whileHeld(new Percent_Shoot());
   }
 
   

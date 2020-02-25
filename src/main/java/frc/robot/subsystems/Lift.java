@@ -70,7 +70,7 @@ public class Lift extends SubsystemBase {
     if(bottom_limit.get() == false){
       Set_enc(RobotContainer.RESET_ENC_POS);
     }
-    //SmartDashboard.putNumber("Lift Encoder Position", lift_motor_enc.getPosition());
+    SmartDashboard.putNumber("Lift Encoder Position", lift_motor_enc.getPosition());
     // This method will be called once per scheduler run
   }
 
