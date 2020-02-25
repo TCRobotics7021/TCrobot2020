@@ -35,6 +35,8 @@ public class Shooter extends SubsystemBase {
   public double ratio_offset = 0;
 
 
+
+
   public double PortRatio = 0;
 
   private CANPIDController bot_shooter_PID = bot_shooter.getPIDController();
@@ -73,6 +75,9 @@ public class Shooter extends SubsystemBase {
     SmartDashboard.putNumber("TestingRatio", 0.5);
     SmartDashboard.putNumber("Set Ratio", 0.5);
     SmartDashboard.putNumber("Set RPMs", 5000);
+
+    SmartDashboard.putNumber("Top_percent", 0);
+    SmartDashboard.putNumber("Bot_percent", 0);
   }
 
   public void setVelocity(double setpoint, double ratio){
@@ -93,6 +98,12 @@ public class Shooter extends SubsystemBase {
   public void freeWheel() {
     bot_shooter_PID.setReference(0, ControlType.kVoltage);
     top_shooter_PID.setReference(0, ControlType.kVoltage);
+  }
+
+  public void percentshoot(double top_speed, double bot_speed) {
+
+    top_shooter_PID.setReference(top_speed, ControlType.kVoltage);
+    bot_shooter_PID.setReference(bot_speed, ControlType.kVoltage);
   }
 
 
@@ -144,7 +155,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public boolean atRPMs() {
-    if (Math.abs(this.bot_setpoint - bot_shooter_enc.getVelocity()) < 20 && Math.abs(this.top_setpoint - top_shooter_enc.getVelocity()) < 20)  {
+    if (Math.abs(this.bot_setpoint - bot_shooter_enc.getVelocity()) < 100 && Math.abs(this.top_setpoint - top_shooter_enc.getVelocity()) < 100)  {
       return true;
     }
     else{
