@@ -11,9 +11,12 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.CommandGroups.AutoShootandMove;
 import frc.robot.CommandGroups.AutoSpinWheel;
 import frc.robot.commands.AcardeDrive;
 import frc.robot.commands.Accumulator_Index;
@@ -64,6 +67,7 @@ public class RobotContainer {
   public final static Intake Intake_subsystem = new Intake(); 
   public final static Lift Lift_Subsystem = new Lift();
   
+  SendableChooser AutonomousChooser = new SendableChooser<Command>();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   public static Joystick JoyL = new Joystick(1);
@@ -108,6 +112,12 @@ public class RobotContainer {
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() { 
+    AutonomousChooser.setDefaultOption("Move Off Line", new Timed_Drive(1, .2));
+    AutonomousChooser.addOption("Shoot Balls", new AutoShoot(5));
+    AutonomousChooser.addOption("Auto Shoot and Move", new AutoShootandMove());
+
+    SmartDashboard.putData("Auto Commands", AutonomousChooser);
+
     // Configure the button bindings
     configureButtonBindings();
 
@@ -161,6 +171,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous 
-    return new AutoShoot(10);
+    return (Command) AutonomousChooser.getSelected();
   }
 }

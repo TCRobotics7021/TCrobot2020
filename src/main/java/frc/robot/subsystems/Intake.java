@@ -12,7 +12,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
 
-  public Spark intake_motor = new Spark(4);
+  public Spark front_intake = new Spark(4);
+  public Spark top_intake = new Spark(1);
+  public Spark bottom_intake = new Spark(2);
+  
 
   /**
    * Creates a new Intake.
@@ -22,7 +25,9 @@ public class Intake extends SubsystemBase {
   }
 
   public void set_Intake_Speed(double speed) {
-    intake_motor.set(speed);
+    front_intake.set(speed);
+    top_intake.set(speed); 
+    bottom_intake.set(speed);
   }
 
   @Override
