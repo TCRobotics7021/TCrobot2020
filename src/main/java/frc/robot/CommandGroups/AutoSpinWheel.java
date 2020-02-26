@@ -29,6 +29,7 @@ public class AutoSpinWheel extends SequentialCommandGroup {
       new ColorWheel_Drive(.1),
       new Lift_Goto_Height(RobotContainer.COLORWHEEL_ON_POS),
       new SpinningWheel(24),
+      new Timed_Drive(.25, 0),
       new Lift_Goto_Height(RobotContainer.COLORWHEEL_ABOVE_POS),
       new Timed_Drive(1.5, -.1)
     );

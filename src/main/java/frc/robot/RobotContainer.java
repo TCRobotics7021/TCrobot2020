@@ -77,9 +77,9 @@ public class RobotContainer {
   public static DigitalInput outfeedsensor = new DigitalInput(3); 
   
   //Constants
-  public final static double ACC_SPEED = .4;
+  public final static double ACC_SPEED = .6;
   public final static double ACC_EMPTY_SPEED = 1;
-  public final static double ACC_DELAY = .05; //In Seconds
+  public final static double ACC_DELAY = .0; //In Seconds
   
   public final static double LR_AIM_TOL = 2;
    
@@ -100,10 +100,10 @@ public class RobotContainer {
 
   public final static double LIFT_POS_CONV_FACTOR = 2.9723191748; 
   public final static double RESET_ENC_POS = 1084;
-  public final static double BAR_POS = 1530;
+  public final static double BAR_POS = 1650;
   public final static double COLORWHEEL_ABOVE_POS = 1115;
-  public final static double COLORWHEEL_ON_POS = 1070;
-  public final static double RETRACT_POS = 1063;
+  public final static double COLORWHEEL_ON_POS = 1100;
+  public final static double RETRACT_POS = 1170;
 
   public final static double LIFT_PVALUE = .2;
 
@@ -163,6 +163,7 @@ public class RobotContainer {
     new JoystickButton(OPpanel, 3).whileHeld(new CancelCommand());
 
     new JoystickButton(OPpanel, 2).whileHeld(new Percent_Shoot());
+    new JoystickButton(OPpanel, 5).whenPressed(new Lift_Goto_Height(SmartDashboard.getNumber("Test Height", 0)));
   }
 
   

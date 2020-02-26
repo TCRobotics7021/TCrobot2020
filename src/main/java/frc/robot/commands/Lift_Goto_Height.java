@@ -56,6 +56,7 @@ public class Lift_Goto_Height extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     RobotContainer.Lift_Subsystem.setSpeed(0);
+    RobotContainer.Lift_Subsystem.latchLift(true);
   }
 
   // Returns true when the command should end.
