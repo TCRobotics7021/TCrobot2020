@@ -31,9 +31,9 @@ public class Default_Intake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (!RobotContainer.infeedsensor.get()) {
-    if (RobotContainer.JoyL.getRawButton(1)) {
-      RobotContainer.Intake_subsystem.set_Intake_Speed(RobotContainer.INTAKE_SPEED, RobotContainer.INNER_INTAKE_SPEED);
+  
+    if (RobotContainer.JoyR.getRawButton(1)) {
+      RobotContainer.Intake_subsystem.set_Intake_Speed(-RobotContainer.INTAKE_SPEED, RobotContainer.INNER_INTAKE_SPEED);
     intake_delay.reset();
     intake_delay.start();
 
@@ -44,8 +44,8 @@ public class Default_Intake extends CommandBase {
     if (intake_delay.get()> 1){
       RobotContainer.Intake_subsystem.set_Intake_Speed(0,0);
     }
-  }
-  else {
+  
+  if (!RobotContainer.infeedsensor.get()&&!RobotContainer.outfeedsensor.get()){
     RobotContainer.Intake_subsystem.set_Intake_Speed(0,0);
   }
   }

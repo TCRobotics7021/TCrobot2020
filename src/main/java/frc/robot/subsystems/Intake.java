@@ -24,10 +24,13 @@ public class Intake extends SubsystemBase {
 
   }
 
-  public void set_Intake_Speed(double speed) {
-    front_intake.set(speed);
-    top_intake.set(-speed*1.5); 
-    bottom_intake.set(-speed*1.5);
+  public void set_Intake_Speed(double outer, double inner) {
+    front_intake.set(outer);
+    top_intake.set(inner); 
+    bottom_intake.set(inner);
+  }
+  public void stop_outer_intake(){
+    front_intake.set(0);
   }
 
   @Override
