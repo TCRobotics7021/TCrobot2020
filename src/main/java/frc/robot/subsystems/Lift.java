@@ -33,7 +33,7 @@ public class Lift extends SubsystemBase {
 
   public Lift() {
     lift_motor.restoreFactoryDefaults();
-
+    SmartDashboard.putNumber("Test Height", 0);
    
   }
 
