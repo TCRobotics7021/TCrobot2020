@@ -37,7 +37,7 @@ public class Shoot_Energy extends CommandBase {
   public void initialize() {
    // smartratio = SmartDashboard.getNumber("Ratio",0);
     //SmartDashboard.putNumber("Ratio",smartratio);
-   
+   shootingStarted = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -63,7 +63,7 @@ public class Shoot_Energy extends CommandBase {
   
       RobotContainer.shooter_subsystem.setVelocity(RPMs, ratio);
 
-      if(RobotContainer.shooter_subsystem.atRPMs()&&( Math.abs(TX) < 2 || RobotContainer.OPpanel.getRawButton(4)) ) {
+      if(RobotContainer.shooter_subsystem.atRPMs()&& RPMs > 0 && ratio != 0 && ( Math.abs(TX) < 2 || RobotContainer.OPpanel.getRawButton(4)) ) {
         RobotContainer.Accumulator_subsystem.setSpeed(RobotContainer.ACC_EMPTY_SPEED);
         shootingStarted = true;
       }

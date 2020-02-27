@@ -39,7 +39,7 @@ public class SpinningWheel extends CommandBase {
   public void initialize() {
    Counter = 0;
    PreviousColor = RobotContainer.ColorWheel_subsystem.getCurrentColor();
-   RobotContainer.ColorWheel_subsystem.setWheelSpeed(0.4);
+   RobotContainer.ColorWheel_subsystem.setWheelSpeed(0.7);
    ColorDelay.start();
    Finished = false;
   }  

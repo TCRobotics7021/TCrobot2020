@@ -23,9 +23,9 @@ public class Shooter extends SubsystemBase {
   private CANSparkMax top_shooter = new CANSparkMax(6, MotorType.kBrushless);
   private CANEncoder  bot_shooter_enc = bot_shooter.getEncoder();
   private CANEncoder top_shooter_enc = top_shooter.getEncoder();
-  public double kP = .0002;
+  public double kP = .0001;
   public double kI = .0000005;
-  public double kD = .003;
+  public double kD = 0;
   public double kIz = 0;
   public double kFF = 0;
   public double maxOutput = 1;
@@ -76,8 +76,8 @@ public class Shooter extends SubsystemBase {
     SmartDashboard.putNumber("Set Ratio", 0.5);
     SmartDashboard.putNumber("Set RPMs", 5000);
 
-    SmartDashboard.putNumber("Top_percent", 0);
-    SmartDashboard.putNumber("Bot_percent", 0);
+    SmartDashboard.putNumber("Top_Percent", 0);
+    SmartDashboard.putNumber("Bot_Percent", 0);
   }
 
   public void setVelocity(double setpoint, double ratio){
@@ -102,8 +102,8 @@ public class Shooter extends SubsystemBase {
 
   public void percentshoot(double top_speed, double bot_speed) {
 
-    top_shooter_PID.setReference(top_speed, ControlType.kVoltage);
-    bot_shooter_PID.setReference(bot_speed, ControlType.kVoltage);
+    top_shooter.set(top_speed);
+    bot_shooter.set(bot_speed);
   }
 
 
@@ -155,7 +155,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public boolean atRPMs() {
-    if (Math.abs(this.bot_setpoint - bot_shooter_enc.getVelocity()) < 100 && Math.abs(this.top_setpoint - top_shooter_enc.getVelocity()) < 100)  {
+    if (Math.abs(this.bot_setpoint - bot_shooter_enc.getVelocity()) < 400 && Math.abs(this.top_setpoint - top_shooter_enc.getVelocity()) < 400)  {
       return true;
     }
     else{

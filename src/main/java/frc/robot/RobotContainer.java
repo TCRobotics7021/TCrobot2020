@@ -24,9 +24,10 @@ import frc.robot.commands.Aim_At_Target;
 import frc.robot.commands.AutoShoot;
 import frc.robot.commands.CancelCommand;
 import frc.robot.commands.ColorWheel_Drive;
+import frc.robot.commands.Default_Intake;
 import frc.robot.commands.DriveInvertedToggle;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.Intake_setspeed;
+
 import frc.robot.commands.Lift_Goto_Height;
 import frc.robot.commands.Manual_Turret;
 import frc.robot.commands.Percent_Lift;
@@ -75,11 +76,11 @@ public class RobotContainer {
   public static Joystick JoyR = new Joystick(2);
   public static Joystick OPpanel = new Joystick(0);
   public static DigitalInput outfeedsensor = new DigitalInput(3); 
-  
+  public static DigitalInput infeedsensor = new DigitalInput(1); 
   //Constants
-  public final static double ACC_SPEED = .4;
-  public final static double ACC_EMPTY_SPEED = .8;
-  public final static double ACC_DELAY = .05; //In Seconds
+  public final static double ACC_SPEED = .6;
+  public final static double ACC_EMPTY_SPEED = 1;
+  public final static double ACC_DELAY = .0; //In Seconds
   
   public final static double LR_AIM_TOL = 2;
    
@@ -94,16 +95,17 @@ public class RobotContainer {
   public final static double DIST_CALC_B = -5.4232;
   public final static double DIST_CALC_C = 3075.9;
 
-  public final static double INTAKE_SPEED = .5; //The intake's speed 
+  public final static double INTAKE_SPEED = .4; //The intake's speed 
+  public final static double INNER_INTAKE_SPEED = .6;
 
   public final static double PRESET_SHOOTING_DIST = 3000; //In mm 
 
   public final static double LIFT_POS_CONV_FACTOR = 2.9723191748; 
-  public final static double RESET_ENC_POS = 1063;
-  public final static double BAR_POS = 1530;
-  public final static double COLORWHEEL_ABOVE_POS = 0;
-  public final static double COLORWHEEL_ON_POS = 1;
-  public final static double RETRACT_POS = 1063;
+  public final static double RESET_ENC_POS = 1084;
+  public final static double BAR_POS = 1650;
+  public final static double COLORWHEEL_ABOVE_POS = 1115;
+  public final static double COLORWHEEL_ON_POS = 1100;
+  public final static double RETRACT_POS = 1170;
 
   public final static double LIFT_PVALUE = .2;
 
@@ -129,7 +131,7 @@ public class RobotContainer {
     Accumulator_subsystem.setDefaultCommand(new Accumulator_Index());
 
     Drive_subsystem.setDefaultCommand(new AcardeDrive());
-
+    Intake_subsystem.setDefaultCommand(new Default_Intake());
     //Turret_subsystem.setDefaultCommand(new Aim_At_Target());
 
 
@@ -147,9 +149,7 @@ public class RobotContainer {
     new JoystickButton(JoyL, 1).whileHeld(new Shoot_Energy_At_Target());
     new JoystickButton(OPpanel, 8).whileHeld(new Manual_Turret(MANUAL_TURRET_SPEED));
     new JoystickButton(OPpanel, 12).whileHeld(new Manual_Turret(-MANUAL_TURRET_SPEED));
-    new JoystickButton(JoyR, 1).whileHeld(new Intake_setspeed(.5)); 
-
-    new JoystickButton(JoyR, 2).whileHeld(new Intake_setspeed(-.5));
+    
     new JoystickButton(OPpanel, 15).whileHeld(new Percent_Lift(.25));
     new JoystickButton(OPpanel, 16).whileHeld(new Percent_Lift(-.25));
     //new JoystickButton(JoyR, 7).whenPressed(new DriveInvertedToggle());
@@ -167,7 +167,7 @@ public class RobotContainer {
     new JoystickButton(OPpanel, 3).whileHeld(new CancelCommand());
 
     new JoystickButton(OPpanel, 2).whileHeld(new Percent_Shoot());
-    
+    new JoystickButton(OPpanel, 5).whenPressed(new Lift_Goto_Height(SmartDashboard.getNumber("Test Height", 0)));
   }
 
   
