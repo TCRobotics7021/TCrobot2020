@@ -109,6 +109,10 @@ public class RobotContainer {
 
   public final static double MANUAL_TURRET_SPEED = .5;
 
+  public final static double LONG_SHOT_VELOCITY = 5800;
+  public final static double LONG_SHOT_RATIO = .8;
+  //8500
+
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
@@ -160,9 +164,10 @@ public class RobotContainer {
     new JoystickButton(JoyR, 13).whenPressed(new Lift_Goto_Height(COLORWHEEL_ABOVE_POS));
     new JoystickButton(JoyR, 14).whenPressed(new Lift_Goto_Height(COLORWHEEL_ON_POS));
 
-    new JoystickButton(OPpanel, 4).whileHeld(new CancelCommand());
+    new JoystickButton(OPpanel, 3).whileHeld(new CancelCommand());
 
-    new JoystickButton(OPpanel, 3).whileHeld(new Percent_Shoot());
+    new JoystickButton(OPpanel, 2).whileHeld(new Percent_Shoot());
+    
   }
 
   
