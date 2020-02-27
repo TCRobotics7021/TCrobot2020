@@ -41,6 +41,7 @@ import frc.robot.commands.Toggle_Auto_Aim;
 import frc.robot.subsystems.Accumulator;
 import frc.robot.subsystems.ColorWheel;
 import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.DriveCamera;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Lift;
@@ -68,6 +69,7 @@ public class RobotContainer {
   public final static ColorWheel ColorWheel_subsystem = new ColorWheel();
   public final static Intake Intake_subsystem = new Intake(); 
   public final static Lift Lift_Subsystem = new Lift();
+  public final static DriveCamera Drivecamera_subsystem = new DriveCamera();
   
   SendableChooser AutonomousChooser = new SendableChooser<Command>();
 
