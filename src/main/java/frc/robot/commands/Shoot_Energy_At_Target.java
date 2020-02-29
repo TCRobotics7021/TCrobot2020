@@ -33,7 +33,8 @@ public class Shoot_Energy_At_Target extends CommandBase {
     addRequirements(RobotContainer.Limelight_subsystem);
     addRequirements(RobotContainer.shooter_subsystem);
     addRequirements(RobotContainer.Turret_subsystem);
-  }
+    addRequirements(RobotContainer.Intake_subsystem);
+    }
 
   // Called when the command is initially scheduled.
   @Override
@@ -53,11 +54,11 @@ public class Shoot_Energy_At_Target extends CommandBase {
     }else{
       turretSpeed += 0;
     }
-    if (turretSpeed > .75) {
-      turretSpeed = .75;
+    if (turretSpeed > .5) {
+      turretSpeed = .5;
     } 
-    if (turretSpeed < -.75) {
-      turretSpeed = -.75;    }
+    if (turretSpeed < -.5) {
+      turretSpeed = -.5;    }
     distance = RobotContainer.Limelight_subsystem.getDistance();
   }else{
     turretSpeed = 0;
@@ -69,7 +70,7 @@ public class Shoot_Energy_At_Target extends CommandBase {
   if(distance > 8500) {
     RobotContainer.shooter_subsystem.setVelocity(RobotContainer.LONG_SHOT_VELOCITY, RobotContainer.LONG_SHOT_RATIO);
   } else {
-    RobotContainer.shooter_subsystem.setVelocity(5000, ratio);
+    RobotContainer.shooter_subsystem.setVelocity(3800, ratio);
   }
 
    
@@ -81,6 +82,7 @@ public class Shoot_Energy_At_Target extends CommandBase {
 }
     if(RobotContainer.shooter_subsystem.atRPMs()&&( Math.abs(TX) < 2 || RobotContainer.OPpanel.getRawButton(4)) ) {
       RobotContainer.Accumulator_subsystem.setSpeed(RobotContainer.ACC_SPEED);
+      RobotContainer.Intake_subsystem.set_Intake_Speed(0, .6);
       shootingStarted = true;
     }
 
@@ -93,6 +95,7 @@ public class Shoot_Energy_At_Target extends CommandBase {
     RobotContainer.Accumulator_subsystem.setSpeed(0);
     RobotContainer.Turret_subsystem.setSpeed(0);
     RobotContainer.shooter_subsystem.freeWheel();
+    RobotContainer.Intake_subsystem.set_Intake_Speed(0, 0);
 
   }
 

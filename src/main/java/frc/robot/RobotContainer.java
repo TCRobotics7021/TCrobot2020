@@ -81,7 +81,7 @@ public class RobotContainer {
   public static DigitalInput infeedsensor = new DigitalInput(1); 
   //Constants
   public final static double ACC_SPEED = .6;
-  public final static double ACC_EMPTY_SPEED = 1;
+  public final static double ACC_EMPTY_SPEED = .7;
   public final static double ACC_DELAY = .0; //In Seconds
   
   public final static double LR_AIM_TOL = 2;
@@ -89,18 +89,19 @@ public class RobotContainer {
   public final static double DRIVE_SCALING = .5;
   public final static double DRIVE_TURN_SCALING = .5;
 
-  public final static double RATIO_CALC_A = -.00000003;
-  public final static double RATIO_CALC_B = .0004;
-  public final static double RATIO_CALC_C = -.6633;
+  public final static double RATIO_CALC_A = -0.00000001 ;
+  public final static double RATIO_CALC_B = .0002;
+  public final static double RATIO_CALC_C = 0.02;
 
-  public final static double DIST_CALC_A = 17.635;
-  public final static double DIST_CALC_B = -5.4232;
-  public final static double DIST_CALC_C = 3075.9;
+  public final static double DIST_CALC_A = 12.192;
+  public final static double DIST_CALC_B = -64.949;
+  public final static double DIST_CALC_C = 2288.3;
 
-  public final static double INTAKE_SPEED = .4; //The intake's speed 
+  public final static double INTAKE_SPEED = .3; //The intake's speed 
   public final static double INNER_INTAKE_SPEED = .6;
 
   public final static double PRESET_SHOOTING_DIST = 3000; //In mm 
+  public final static double SHOOTER_START_RANGE = 250;
 
   public final static double LIFT_POS_CONV_FACTOR = 2.9723191748; 
   public final static double RESET_ENC_POS = 1084;
@@ -113,8 +114,8 @@ public class RobotContainer {
 
   public final static double MANUAL_TURRET_SPEED = .5;
 
-  public final static double LONG_SHOT_VELOCITY = 5800;
-  public final static double LONG_SHOT_RATIO = .8;
+  public final static double LONG_SHOT_VELOCITY = 4800;
+  public final static double LONG_SHOT_RATIO = .7;
   //8500
 
   /**
@@ -168,7 +169,6 @@ public class RobotContainer {
 
     new JoystickButton(OPpanel, 3).whileHeld(new CancelCommand());
 
-    new JoystickButton(OPpanel, 2).whileHeld(new Percent_Shoot());
     new JoystickButton(OPpanel, 5).whenPressed(new Lift_Goto_Height(SmartDashboard.getNumber("Test Height", 0)));
   }
 

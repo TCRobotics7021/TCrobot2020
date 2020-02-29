@@ -30,6 +30,7 @@ public class Shoot_Energy extends CommandBase {
     addRequirements(RobotContainer.Accumulator_subsystem);
     addRequirements(RobotContainer.shooter_subsystem);
     addRequirements(RobotContainer.Limelight_subsystem);
+    addRequirements(RobotContainer.Intake_subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -65,6 +66,7 @@ public class Shoot_Energy extends CommandBase {
 
       if(RobotContainer.shooter_subsystem.atRPMs()&& RPMs > 0 && ratio != 0 && ( Math.abs(TX) < 2 || RobotContainer.OPpanel.getRawButton(4)) ) {
         RobotContainer.Accumulator_subsystem.setSpeed(RobotContainer.ACC_EMPTY_SPEED);
+        RobotContainer.Intake_subsystem.set_Intake_Speed(0, .6);
         shootingStarted = true;
       }
   
@@ -77,6 +79,7 @@ public class Shoot_Energy extends CommandBase {
     RobotContainer.Accumulator_subsystem.setSpeed(0);
     RobotContainer.shooter_subsystem.setVelocity(0,0);
     RobotContainer.shooter_subsystem.freeWheel();
+    RobotContainer.Intake_subsystem.set_Intake_Speed(0, 0);
   }
 
   // Returns true when the command should end.

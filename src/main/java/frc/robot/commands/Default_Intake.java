@@ -47,6 +47,8 @@ public class Default_Intake extends CommandBase {
   
   if (!RobotContainer.infeedsensor.get()&&!RobotContainer.outfeedsensor.get()){
     RobotContainer.Intake_subsystem.set_Intake_Speed(0,0);
+  } else if (!RobotContainer.infeedsensor.get()&&RobotContainer.outfeedsensor.get()) {
+    RobotContainer.Intake_subsystem.set_Intake_Speed(0,.6);
   }
   }
 
