@@ -25,7 +25,8 @@ public class TrenchBallShoot extends SequentialCommandGroup {
     addCommands(
       new AutoShoot(3),
       new IntakeTrenchBalls(),
-      new Timed_Drive(.5, -.2),
+      new Timed_Drive(1, -.2),
+      new Timed_Drive(.5, .1),
       new AutoShoot(3)
     );
   }

@@ -82,7 +82,7 @@ public class RobotContainer {
   public static DigitalInput outfeedsensor = new DigitalInput(3); 
   public static DigitalInput infeedsensor = new DigitalInput(1); 
   //Constants
-  public final static double ACC_SPEED = .6;
+  public final static double ACC_SPEED = .5;
   public final static double ACC_EMPTY_SPEED = .7;
   public final static double ACC_DELAY = .0; //In Seconds
   
@@ -91,15 +91,15 @@ public class RobotContainer {
   public final static double DRIVE_SCALING = .5;
   public final static double DRIVE_TURN_SCALING = .5;
 
-  public final static double RATIO_CALC_A = -0.00000001 ;
-  public final static double RATIO_CALC_B = .0002;
-  public final static double RATIO_CALC_C = 0.02;
+  public final static double RATIO_CALC_A = -0.00000006;
+  public final static double RATIO_CALC_B = .0006;
+  public final static double RATIO_CALC_C = -0.9589;
 
-  public final static double DIST_CALC_A = 12.192;
-  public final static double DIST_CALC_B = -64.949;
-  public final static double DIST_CALC_C = 2288.3;
+  public final static double DIST_CALC_A = 11.366;
+  public final static double DIST_CALC_B = -98.772;
+  public final static double DIST_CALC_C = 2725.8;
 
-  public final static double INTAKE_SPEED = .8; //The intake's speed 
+  public final static double INTAKE_SPEED = .7; //The intake's speed 
   public final static double INNER_INTAKE_SPEED = .6;
 
   public final static double PRESET_SHOOTING_DIST = 3000; //In mm 
