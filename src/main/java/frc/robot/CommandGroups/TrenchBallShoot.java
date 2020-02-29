@@ -8,27 +8,25 @@
 package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.RobotContainer;
-import frc.robot.commands.ColorWheel_Drive;
-import frc.robot.commands.Lift_Goto_Height;
-import frc.robot.commands.SpinningWheel;
-import frc.robot.commands.Timed_Drive;
+import frc.robot.commands.AutoShoot;
+import frc.robot.commands.BallTracking;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class AutoSpinWheel extends SequentialCommandGroup {
+public class TrenchBallShoot extends SequentialCommandGroup {
   /**
-   * Creates a new AutoSpinWheel.
+   * Creates a new TrenchBallShoot.
    */
-  public AutoSpinWheel() {
+  public TrenchBallShoot() {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     addCommands(
-      new Lift_Goto_Height(RobotContainer.COLORWHEEL_ON_POS),
-      new SpinningWheel(24),
-      new Timed_Drive(.25, 0),
-      new Lift_Goto_Height(RobotContainer.COLORWHEEL_ABOVE_POS)
+      new AutoShoot(5),
+      new BallTracking(),
+      new BallTracking(),
+      new BallTracking(),
+      new AutoShoot(5)
     );
   }
 }

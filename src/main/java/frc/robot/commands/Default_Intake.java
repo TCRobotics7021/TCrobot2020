@@ -32,7 +32,7 @@ public class Default_Intake extends CommandBase {
   @Override
   public void execute() {
   
-    if (RobotContainer.JoyR.getRawButton(1)) {
+    if (RobotContainer.JoyL.getRawButton(1)) {
       RobotContainer.Intake_subsystem.set_Intake_Speed(-RobotContainer.INTAKE_SPEED, RobotContainer.INNER_INTAKE_SPEED);
     intake_delay.reset();
     intake_delay.start();

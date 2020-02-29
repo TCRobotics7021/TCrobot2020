@@ -22,6 +22,7 @@ import frc.robot.commands.AcardeDrive;
 import frc.robot.commands.Accumulator_Index;
 import frc.robot.commands.Aim_At_Target;
 import frc.robot.commands.AutoShoot;
+import frc.robot.commands.BallTracking;
 import frc.robot.commands.CancelCommand;
 import frc.robot.commands.ColorWheel_Drive;
 import frc.robot.commands.Default_Intake;
@@ -74,8 +75,8 @@ public class RobotContainer {
   SendableChooser AutonomousChooser = new SendableChooser<Command>();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-  public static Joystick JoyL = new Joystick(1);
-  public static Joystick JoyR = new Joystick(2);
+  public static Joystick JoyR = new Joystick(1);
+  public static Joystick JoyL = new Joystick(2);
   public static Joystick OPpanel = new Joystick(0);
   public static DigitalInput outfeedsensor = new DigitalInput(3); 
   public static DigitalInput infeedsensor = new DigitalInput(1); 
@@ -97,7 +98,7 @@ public class RobotContainer {
   public final static double DIST_CALC_B = -64.949;
   public final static double DIST_CALC_C = 2288.3;
 
-  public final static double INTAKE_SPEED = .3; //The intake's speed 
+  public final static double INTAKE_SPEED = .8; //The intake's speed 
   public final static double INNER_INTAKE_SPEED = .6;
 
   public final static double PRESET_SHOOTING_DIST = 3000; //In mm 
@@ -116,6 +117,12 @@ public class RobotContainer {
 
   public final static double LONG_SHOT_VELOCITY = 4800;
   public final static double LONG_SHOT_RATIO = .7;
+
+  public final static double BALL_TRACKING_PVALUE = .0185;
+  public final static double BALL_TRACKING_DRIVESPEED = .1;
+  public final static double BALL_TRACKING_TY = -13;
+  public final static double BALL_TRACKING_TX = 5;
+  public final static double BALL_TRACKING_DRIVEDELAY = 1;
   //8500
 
   /**
@@ -148,8 +155,8 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(JoyL, 2).whileHeld(new Shoot_Energy());
-    new JoystickButton(JoyL, 1).whileHeld(new Shoot_Energy_At_Target());
+    new JoystickButton(JoyR, 2).whileHeld(new Shoot_Energy());
+    new JoystickButton(JoyR, 1).whileHeld(new Shoot_Energy_At_Target());
     new JoystickButton(OPpanel, 8).whileHeld(new Manual_Turret(MANUAL_TURRET_SPEED));
     new JoystickButton(OPpanel, 12).whileHeld(new Manual_Turret(-MANUAL_TURRET_SPEED));
     
@@ -161,15 +168,15 @@ public class RobotContainer {
     new JoystickButton(OPpanel, 14).whenPressed(new Lift_Goto_Height(RETRACT_POS));
 
     new JoystickButton(OPpanel, 6).whenPressed(new AutoSpinWheel());
-    new JoystickButton(JoyR, 10).whenPressed(new Timed_Drive(2, .1));
-    new JoystickButton(JoyR, 11).whenPressed(new ColorWheel_Drive(.1));
-    new JoystickButton(JoyR, 12).whenPressed(new SpinningWheel(5));
-    new JoystickButton(JoyR, 13).whenPressed(new Lift_Goto_Height(COLORWHEEL_ABOVE_POS));
-    new JoystickButton(JoyR, 14).whenPressed(new Lift_Goto_Height(COLORWHEEL_ON_POS));
+    new JoystickButton(JoyL, 10).whenPressed(new Timed_Drive(2, .1));
+    new JoystickButton(JoyL, 11).whenPressed(new ColorWheel_Drive(.1));
+    new JoystickButton(JoyL, 12).whenPressed(new SpinningWheel(5));
+    new JoystickButton(JoyL, 13).whenPressed(new Lift_Goto_Height(COLORWHEEL_ABOVE_POS));
+    new JoystickButton(JoyL, 14).whenPressed(new Lift_Goto_Height(COLORWHEEL_ON_POS));
 
     new JoystickButton(OPpanel, 3).whileHeld(new CancelCommand());
 
-    new JoystickButton(OPpanel, 5).whenPressed(new Lift_Goto_Height(SmartDashboard.getNumber("Test Height", 0)));
+    new JoystickButton(OPpanel, 2).whenPressed(new BallTracking());
   }
 
   
