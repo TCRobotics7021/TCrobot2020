@@ -64,12 +64,14 @@ public class AutoShoot extends CommandBase {
   
       ratio = RobotContainer.shooter_subsystem.getPortRatio(distance);
   
-      RobotContainer.shooter_subsystem.setVelocity(5000, ratio);
+      RobotContainer.shooter_subsystem.setVelocity(4000, ratio);
 
       if(RobotContainer.shooter_subsystem.atRPMs()&&( Math.abs(TX) < 2)) {
         RobotContainer.Accumulator_subsystem.setSpeed(RobotContainer.ACC_SPEED);
         shootingStarted = true;
       }
+      
+
   }
 
   // Called once the command ends or is interrupted.

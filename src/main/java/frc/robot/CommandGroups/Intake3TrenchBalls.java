@@ -8,25 +8,28 @@
 package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.AutoShoot;
 import frc.robot.commands.BallTracking;
 import frc.robot.commands.Timed_Drive;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class TrenchBallShoot extends SequentialCommandGroup {
+public class Intake3TrenchBalls extends SequentialCommandGroup {
   /**
-   * Creates a new TrenchBallShoot.
+   * Creates a new Intake3TrenchBalls.
    */
-  public TrenchBallShoot() {
+  public Intake3TrenchBalls() {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    addCommands(
-      new AutoShoot(3),
-      new IntakeTrenchBalls(),
-      new Timed_Drive(.5, -.2),
-      new AutoShoot(3)
+    
+      addCommands(
+        new BallTracking(),
+        new Timed_Drive(.5, 0),
+        new BallTracking(),
+        new Timed_Drive(.5, 0),
+        new BallTracking(),
+        new Timed_Drive(.5, 0)
     );
+    
   }
 }

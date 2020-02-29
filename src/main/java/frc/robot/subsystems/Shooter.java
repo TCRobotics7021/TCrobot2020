@@ -74,7 +74,7 @@ public class Shooter extends SubsystemBase {
     SmartDashboard.putNumber("Ratio", bot_top_ratio);
     SmartDashboard.putNumber("TestingRatio", 0.5);
     SmartDashboard.putNumber("Set Ratio", 0.5);
-    SmartDashboard.putNumber("Set RPMs", 5000);
+    SmartDashboard.putNumber("Set RPMs", 4000);
 
     SmartDashboard.putNumber("Top_Percent", 0);
     SmartDashboard.putNumber("Bot_Percent", 0);

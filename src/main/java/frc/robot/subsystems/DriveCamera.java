@@ -20,7 +20,7 @@ public class DriveCamera extends SubsystemBase {
   * Creates a new Limelight.
   */
 
- NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+ NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight-drive");
  double yposition = 0;
  double xposition = 0;
  double distance = 0;

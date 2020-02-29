@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.CommandGroups.AutoShootandMove;
 import frc.robot.CommandGroups.AutoSpinWheel;
+import frc.robot.CommandGroups.TrenchBallShoot;
 import frc.robot.commands.AcardeDrive;
 import frc.robot.commands.Accumulator_Index;
 import frc.robot.commands.Aim_At_Target;
@@ -118,9 +119,9 @@ public class RobotContainer {
   public final static double LONG_SHOT_VELOCITY = 4800;
   public final static double LONG_SHOT_RATIO = .7;
 
-  public final static double BALL_TRACKING_PVALUE = .0185;
-  public final static double BALL_TRACKING_DRIVESPEED = .1;
-  public final static double BALL_TRACKING_TY = -13;
+  public final static double BALL_TRACKING_PVALUE = .0185 * .8;
+  public final static double BALL_TRACKING_DRIVESPEED = .15;
+  public final static double BALL_TRACKING_TY = -10;
   public final static double BALL_TRACKING_TX = 5;
   public final static double BALL_TRACKING_DRIVEDELAY = 1;
   //8500
@@ -177,6 +178,7 @@ public class RobotContainer {
     new JoystickButton(OPpanel, 3).whileHeld(new CancelCommand());
 
     new JoystickButton(OPpanel, 2).whenPressed(new BallTracking());
+    new JoystickButton(OPpanel, 1).whenPressed(new TrenchBallShoot());
   }
 
   

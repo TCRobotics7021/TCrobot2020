@@ -26,12 +26,17 @@ public class BallTracking extends CommandBase {
     Timer drivedelay = new Timer();
     boolean finished;
 
+   
+
 
   public BallTracking() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.Drivecamera_subsystem);
     addRequirements(RobotContainer.Drive_subsystem);
     addRequirements(RobotContainer.Intake_subsystem);
+  
+
+
   }
 
   // Called when the command is initially scheduled.
@@ -40,6 +45,8 @@ public class BallTracking extends CommandBase {
     RobotContainer.Drivecamera_subsystem.setPipeline(1);
     ballClose = false;
     finished = false;
+    ty = 0;
+    tx = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -55,23 +62,28 @@ public class BallTracking extends CommandBase {
       driveSpeed = RobotContainer.BALL_TRACKING_DRIVESPEED;
     }
 
-    if (ty < RobotContainer.BALL_TRACKING_TY){
+    if (ty < RobotContainer.BALL_TRACKING_TY && Math.abs(tx) < RobotContainer.BALL_TRACKING_TX){
       ballClose = true;
       drivedelay.start();
-      RobotContainer.Intake_subsystem.set_Intake_Speed(RobotContainer.INTAKE_SPEED, RobotContainer.INNER_INTAKE_SPEED);
+      RobotContainer.Intake_subsystem.set_Intake_Speed(-RobotContainer.INTAKE_SPEED, RobotContainer.INNER_INTAKE_SPEED);
     }
 
     if ( ballClose == false){
-      RobotContainer.Drive_subsystem.setSpeed(driveSpeed + turningSpeed, driveSpeed - turningSpeed);
+      RobotContainer.Drive_subsystem.setSpeed(driveSpeed - turningSpeed, driveSpeed + turningSpeed);
+      RobotContainer.Intake_subsystem.set_Intake_Speed(0, RobotContainer.INNER_INTAKE_SPEED);
     } else if(drivedelay.get() < RobotContainer.BALL_TRACKING_DRIVEDELAY){
       RobotContainer.Drive_subsystem.setSpeed(RobotContainer.BALL_TRACKING_DRIVESPEED, RobotContainer.BALL_TRACKING_DRIVESPEED);
+      RobotContainer.Intake_subsystem.set_Intake_Speed(-RobotContainer.INTAKE_SPEED, RobotContainer.INNER_INTAKE_SPEED);
     } else{
       RobotContainer.Drive_subsystem.setSpeed(0, 0);
+      RobotContainer.Intake_subsystem.set_Intake_Speed(-RobotContainer.INTAKE_SPEED, RobotContainer.INNER_INTAKE_SPEED);
     }
 
     if (RobotContainer.infeedsensor.get() == false && ballClose == true){
       finished = true;
     }
+
+    
 
   }
 
@@ -80,6 +92,8 @@ public class BallTracking extends CommandBase {
   public void end(boolean interrupted) {
     RobotContainer.Drive_subsystem.setSpeed(0, 0);
     RobotContainer.Drivecamera_subsystem.setPipeline(0);
+
+   
   }
 
   // Returns true when the command should end.
