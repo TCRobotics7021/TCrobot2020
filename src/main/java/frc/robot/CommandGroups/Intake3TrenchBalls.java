@@ -24,11 +24,11 @@ public class Intake3TrenchBalls extends SequentialCommandGroup {
     
       addCommands(
         new BallTracking(),
-        new Timed_Drive(.5, 0),
+        new Timed_Drive(.25, 0),
         new BallTracking(),
-        new Timed_Drive(.5, 0),
+        new Timed_Drive(.25, 0),
         new BallTracking(),
-        new Timed_Drive(.5, 0)
+        new Timed_Drive(.25, 0)
     );
     
   }

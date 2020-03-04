@@ -23,10 +23,10 @@ public class TrenchBallShoot extends SequentialCommandGroup {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     addCommands(
-      new AutoShoot(3),
+      new AutoShoot(2.5),
       new IntakeTrenchBalls(),
-      new Timed_Drive(1, -.2),
-      new Timed_Drive(.5, .1),
+      new Timed_Drive(2.5, -.2),
+      new Timed_Drive(.25, .1),
       new AutoShoot(3)
     );
   }

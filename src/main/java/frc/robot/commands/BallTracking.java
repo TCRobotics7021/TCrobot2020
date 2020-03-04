@@ -72,7 +72,7 @@ public class BallTracking extends CommandBase {
       RobotContainer.Drive_subsystem.setSpeed(driveSpeed - turningSpeed, driveSpeed + turningSpeed);
       RobotContainer.Intake_subsystem.set_Intake_Speed(0, RobotContainer.INNER_INTAKE_SPEED);
     } else if(drivedelay.get() < RobotContainer.BALL_TRACKING_DRIVEDELAY){
-      RobotContainer.Drive_subsystem.setSpeed(RobotContainer.BALL_TRACKING_DRIVESPEED, RobotContainer.BALL_TRACKING_DRIVESPEED);
+      RobotContainer.Drive_subsystem.setSpeed(.5 * RobotContainer.BALL_TRACKING_DRIVESPEED, .5 * RobotContainer.BALL_TRACKING_DRIVESPEED);
       RobotContainer.Intake_subsystem.set_Intake_Speed(-RobotContainer.INTAKE_SPEED, RobotContainer.INNER_INTAKE_SPEED);
     } else{
       RobotContainer.Drive_subsystem.setSpeed(0, 0);

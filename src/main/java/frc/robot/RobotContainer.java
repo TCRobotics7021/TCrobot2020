@@ -89,7 +89,7 @@ public class RobotContainer {
   public final static double LR_AIM_TOL = 2;
    
   public final static double DRIVE_SCALING = .5;
-  public final static double DRIVE_TURN_SCALING = .5;
+  public final static double DRIVE_TURN_SCALING = .4;
 
   public final static double RATIO_CALC_A = -0.00000006;
   public final static double RATIO_CALC_B = .0006;
@@ -109,7 +109,7 @@ public class RobotContainer {
   public final static double RESET_ENC_POS = 1084;
   public final static double BAR_POS = 1650;
   public final static double COLORWHEEL_ABOVE_POS = 1115;
-  public final static double COLORWHEEL_ON_POS = 1100;
+  public final static double COLORWHEEL_ON_POS = 1110;
   public final static double RETRACT_POS = 1170;
 
   public final static double LIFT_PVALUE = .2;
@@ -117,13 +117,13 @@ public class RobotContainer {
   public final static double MANUAL_TURRET_SPEED = .5;
 
   public final static double LONG_SHOT_VELOCITY = 4800;
-  public final static double LONG_SHOT_RATIO = .7;
+  public final static double LONG_SHOT_RATIO = .65;
 
   public final static double BALL_TRACKING_PVALUE = .0185 * .8;
-  public final static double BALL_TRACKING_DRIVESPEED = .15;
+  public final static double BALL_TRACKING_DRIVESPEED = .2;
   public final static double BALL_TRACKING_TY = -10;
   public final static double BALL_TRACKING_TX = 5;
-  public final static double BALL_TRACKING_DRIVEDELAY = 1;
+  public final static double BALL_TRACKING_DRIVEDELAY = .5;
   //8500
 
   /**
@@ -133,6 +133,7 @@ public class RobotContainer {
     AutonomousChooser.setDefaultOption("Move Off Line", new Timed_Drive(1, .2));
     AutonomousChooser.addOption("Shoot Balls", new AutoShoot(5));
     AutonomousChooser.addOption("Auto Shoot and Move", new AutoShootandMove());
+    AutonomousChooser.addOption("Shoot Trench Balls", new TrenchBallShoot());
 
     SmartDashboard.putData("Auto Commands", AutonomousChooser);
 
@@ -168,17 +169,18 @@ public class RobotContainer {
     new JoystickButton(OPpanel, 13).whenPressed(new Lift_Goto_Height(BAR_POS));
     new JoystickButton(OPpanel, 14).whenPressed(new Lift_Goto_Height(RETRACT_POS));
 
-    new JoystickButton(OPpanel, 6).whenPressed(new AutoSpinWheel());
-    new JoystickButton(JoyL, 10).whenPressed(new Timed_Drive(2, .1));
-    new JoystickButton(JoyL, 11).whenPressed(new ColorWheel_Drive(.1));
-    new JoystickButton(JoyL, 12).whenPressed(new SpinningWheel(5));
-    new JoystickButton(JoyL, 13).whenPressed(new Lift_Goto_Height(COLORWHEEL_ABOVE_POS));
-    new JoystickButton(JoyL, 14).whenPressed(new Lift_Goto_Height(COLORWHEEL_ON_POS));
+   // new JoystickButton(OPpanel, 6).whenPressed(new AutoSpinWheel());
+   // new JoystickButton(JoyL, 10).whenPressed(new Timed_Drive(2, .1));
+    //new JoystickButton(JoyL, 11).whenPressed(new ColorWheel_Drive(.1));
+    //new JoystickButton(JoyL, 12).whenPressed(new SpinningWheel(5));
+    new JoystickButton(OPpanel, 9).whenPressed(new Lift_Goto_Height(COLORWHEEL_ABOVE_POS));
+   // new JoystickButton(OPpanel, 9).whenPressed(new Lift_Goto_Height(COLORWHEEL_ON_POS));
 
     new JoystickButton(OPpanel, 3).whileHeld(new CancelCommand());
 
-    new JoystickButton(OPpanel, 2).whenPressed(new BallTracking());
+    new JoystickButton(OPpanel, 2).whenPressed(new AutoSpinWheel());
     new JoystickButton(OPpanel, 1).whenPressed(new TrenchBallShoot());
+    
   }
 
   

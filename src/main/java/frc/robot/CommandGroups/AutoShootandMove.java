@@ -23,7 +23,7 @@ public class AutoShootandMove extends SequentialCommandGroup {
     // super(new FooCommand(), new BarCommand());
     addCommands(
       new AutoShoot(5),
-      new Timed_Drive(1.5, .2)
+      new Timed_Drive(.75, .2)
 
     );
   }

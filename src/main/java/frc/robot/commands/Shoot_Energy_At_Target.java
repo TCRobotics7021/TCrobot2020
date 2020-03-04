@@ -67,7 +67,7 @@ public class Shoot_Energy_At_Target extends CommandBase {
 
     ratio = RobotContainer.shooter_subsystem.getPortRatio(distance);
   
-  if(distance > 8500) {
+  if(distance > 7500) {
     RobotContainer.shooter_subsystem.setVelocity(RobotContainer.LONG_SHOT_VELOCITY, RobotContainer.LONG_SHOT_RATIO);
   } else {
     RobotContainer.shooter_subsystem.setVelocity(4000, ratio);

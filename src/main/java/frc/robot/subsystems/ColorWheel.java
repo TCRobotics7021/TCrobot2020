@@ -64,11 +64,11 @@ public class ColorWheel extends SubsystemBase {
     //SmartDashboard.putNumber("Color Sensor Height", ColorSensor.getProximity());
     //SmartDashboard.putString("Current Color", getCurrentColor());
     // This method will be called once per scheduler run
-    // detectedColor2 = ColorSensor.getColor();
-    // SmartDashboard.putNumber("Red", detectedColor2.red); 
-    // SmartDashboard.putNumber("Green", detectedColor2.green); 
-    // SmartDashboard.putNumber("Blue", detectedColor2.blue); 
-    // SmartDashboard.putNumber("Color Sensor Distance", ColorSensor.getIR());
+    //detectedColor2 = ColorSensor.getColor();
+    //SmartDashboard.putNumber("Red", detectedColor2.red); 
+    //SmartDashboard.putNumber("Green", detectedColor2.green); 
+    //SmartDashboard.putNumber("Blue", detectedColor2.blue); 
+    //SmartDashboard.putNumber("Color Sensor Distance", ColorSensor.getIR());
  
 
   }
